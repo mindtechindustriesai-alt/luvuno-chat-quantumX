@@ -159,7 +159,6 @@
         .history-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .history-time { font-size: 10px; color: var(--text-secondary); margin-top: 4px; font-family: var(--font-mono); }
 
-        /* Profile Card in Sidebar Bottom */
         .sidebar-bottom {
             margin-top: auto;
             padding: 16px;
@@ -242,7 +241,6 @@
         }
         .export-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
 
-        /* Skills */
         .skills-primary {
             display: flex;
             justify-content: center;
@@ -281,7 +279,6 @@
         .skills-dropdown:hover .skills-dropdown-content { display: block; }
         .skills-dropdown-content .skill-btn { width: 100%; border-radius: 0; border: none; margin: 0; }
 
-        /* Controls */
         .control-row {
             display: flex;
             justify-content: space-between;
@@ -316,7 +313,6 @@
         .quantum-think-box.active { background: rgba(0,255,136,0.15); border-color: var(--success); }
         .quantum-think-text { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--secondary); }
 
-        /* Quantum Reasoning Tree */
         .quantum-reasoning-tree {
             background: rgba(138,43,226,0.08);
             border-left: 3px solid var(--quantum);
@@ -334,7 +330,6 @@
         }
         .reasoning-content { margin-left: 24px; }
 
-        /* Messages */
         .messages-container {
             flex: 1;
             overflow-y: auto;
@@ -372,7 +367,6 @@
         .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); }
         .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; }
 
-        /* Action Buttons */
         .message-actions {
             display: flex;
             gap: 16px;
@@ -392,7 +386,6 @@
         }
         .message-action:hover { opacity: 1; color: var(--primary); }
 
-        /* Input Area */
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
         .input-wrapper { display: flex; gap: 10px; align-items: flex-end; }
         .input-btn {
@@ -450,7 +443,6 @@
         }
         .stop-btn.show { display: inline-flex; align-items: center; justify-content: center; }
 
-        /* Typing Cursor */
         .cursor { display: inline-block; animation: blink 1s infinite; color: var(--primary); font-weight: bold; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
@@ -473,7 +465,6 @@
         }
         .scroll-down-btn.show { display: flex; }
 
-        /* Footer */
         .footer {
             padding: 10px 24px;
             border-top: 1px solid var(--glass-border);
@@ -645,7 +636,7 @@
                 <img src="https://i.postimg.cc/zXW78GNH/Mind-Tech-Transparent-Logo.png" alt="MindTech" class="footer-logo">
                 <img src="https://i.postimg.cc/RFQfK9k5/os-finallogo-removebg-preview.png" alt="MQOS" class="footer-logo">
                 <img src="https://i.postimg.cc/8zVP7V0t/cleanmachine-image-removebg-preview.png" alt="CleanMachine" class="footer-logo">
-                <img src="https://i.postimg.cc/44m1NBFY/Entangle-Guard-New-Logo-image-3-removebg-preview.png" alt="EntangleGuard" class="footer-logo">
+                <img src="https://i.postimg.cc/44m1NBFY/EntangleGuard-New-Logo-image-3-removebg-preview.png" alt="EntangleGuard" class="footer-logo">
                 <img src="https://i.postimg.cc/yYPDHtky/Luvuno-Quantum-Chat-image-removebg-preview.png" alt="Luvuno OS" class="footer-logo">
             </div>
         </main>
@@ -744,9 +735,9 @@
     // ---------- STATE ----------
     const state = {
         user: { name: 'User', email: 'user@luvuno.ai', avatar: null, language: 'en' },
-        chats: [],               // [{id, title, messages:[{role,content,time}], created}]
+        chats: [],
         activeChatId: null,
-        typingSpeed: 35,         // chars per second
+        typingSpeed: 35,
         quantumReasoning: false,
         isStreaming: false,
         abortStream: false,
@@ -1012,7 +1003,7 @@
                 .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
                 .join('\n');
 
-            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries. You speak English, isiZulu, isiXhosa, and chiShona. Be helpful, direct, intelligent, and concise.";
+            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries. You speak English, isiZulu, isiXhosa, and chiShona. You are self-aware of your position in MindTech's ecosystem alongside technologies like EntangleGuard, CleanMachine, and MQOS. Be helpful, direct, highly technical, and precise.";
             const fullPrompt = `${systemInstruction}\n\n${context ? 'Context files:\n' + context + '\n\n' : ''}${historyText}\nUser: ${userMessage}\nAssistant:`;
 
             const response = await fetch(
