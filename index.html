@@ -259,7 +259,6 @@
             font-weight: 600;
             color: var(--text-secondary);
         }
-        .skill-btn i { font-size: 12px; }
         .skill-btn:hover { background: rgba(0,180,216,0.2); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
         .skill-btn.active { background: linear-gradient(135deg, rgba(0,180,216,0.3), rgba(138,43,226,0.2)); color: var(--secondary); }
 
@@ -405,6 +404,53 @@
             color: var(--text-secondary);
         }
         .message-action:hover { opacity: 1; color: var(--primary); }
+
+        /* =========================================
+           OPTION C: WAVE COLLAPSE (Quantum Thinking)
+           ========================================= */
+        .thinking-wave-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 0;
+        }
+        .wave-svg {
+            width: 60px;
+            height: 30px;
+            overflow: visible;
+        }
+        .wave-path {
+            fill: none;
+            stroke: var(--secondary);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 4px var(--primary-glow));
+        }
+        /* Collapse animation: the wave flattens into a straight line */
+        .wave-svg.collapsed .wave-path {
+            animation: wave-collapse 0.6s ease-out forwards;
+        }
+        @keyframes wave-collapse {
+            0%   { d: path("M 0 15 Q 15 0, 30 15 T 60 15"); opacity: 1; }
+            50%  { d: path("M 0 15 Q 15 25, 30 15 T 60 15"); opacity: 0.6; }
+            100% { d: path("M 0 15 L 60 15"); opacity: 0.3; }
+        }
+        .thinking-text {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--secondary);
+            letter-spacing: 0.5px;
+        }
+        .thinking-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
 
         /* Input Area */
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
@@ -642,11 +688,9 @@
             <div class="input-area">
                 <div class="input-wrapper">
                     <button id="attachBtn" class="input-btn" title="Attach files"><i class="fas fa-paperclip"></i></button>
-                    <button id="imageBtn" class="input-btn" title="Upload image"><i class="fas fa-camera"></i></button>
                     <button id="voiceBtn" class="input-btn voice-btn" title="Voice input"><i class="fas fa-microphone"></i></button>
                     <input type="file" id="fileInput" multiple style="display: none;">
-                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno... or type 'generate an image of...'"></textarea>
+                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno anything..."></textarea>
                     <button id="sendBtn" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
                     <button id="stopBtn" class="stop-btn" title="Stop"><i class="fas fa-stop"></i></button>
                 </div>
@@ -722,8 +766,7 @@
             <p style="margin-top: 12px;">Welcome to <strong>Luvuno</strong>, the Quantum Sovereign AI assistant by MindTech Industries.</p>
             <ul style="margin-left: 1.2em; line-height: 1.8;">
                 <li><strong>Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
-                <li><strong>Image generation:</strong> Type "generate an image of a lion in the savanna" — Luvuno will render it inline.</li>
-                <li><strong>Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code, and images.</li>
+                <li><strong>Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code.</li>
                 <li><strong>Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
                 <li><strong>Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
                 <li><strong>Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
@@ -794,7 +837,6 @@
 
     // ---------- UTILS ----------
     const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
     const uid = () => Math.random().toString(36).slice(2, 10);
     const now = () => new Date();
     const timeStr = (d = now()) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -893,7 +935,8 @@
         const chat = { id: uid(), title: 'New Chat', messages: [], created: Date.now() };
         chat.messages.push({
             role: 'ai',
-            content: `**Hi! I'm Luvuno**, your AI assistant for Luvuno OS on the quantum portal. 🌌\n\nI'm here to help you navigate, explore, and get things done — whether that's answering questions, solving problems, or just having a great conversation.\n\n⚛️ I route through quantum backends (98.4% correlation). I speak English, Zulu, Xhosa, Shona. Toggle **Quantum Reasoning** for step-by-step visual breakdowns.\n\n🎨 Want an image? Just say *"generate an image of a lion in the savanna"* — I'll render it inline with download and regenerate buttons.`,
+            content: `**Hi, I'm Luvuno. How can I help you today?**\n\n` +
+                     `<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">⚛️ Quantum portal active · CHSH S=2.76</span>`,
             time: Date.now(),
         });
         state.chats.push(chat);
@@ -901,6 +944,41 @@
         if (render) { renderChatHistory(); renderActiveChat(); }
         saveState();
         return chat;
+    }
+
+    // ---------- WAVE COLLAPSE THINKING ----------
+    function showWaveThinking(containerEl) {
+        containerEl.innerHTML = `
+            <div class="thinking-wave-container" id="waveContainer">
+                <svg class="wave-svg" viewBox="0 0 60 30" preserveAspectRatio="none">
+                    <path class="wave-path" d="M 0 15 Q 15 0, 30 15 T 60 15">
+                        <animate attributeName="d"
+                            values="M 0 15 Q 15 0, 30 15 T 60 15;
+                                    M 0 15 Q 15 30, 30 15 T 60 15;
+                                    M 0 15 Q 15 0, 30 15 T 60 15"
+                            dur="1.2s"
+                            repeatCount="indefinite" />
+                    </path>
+                </svg>
+                <span class="thinking-text">Collapsing quantum state<span class="thinking-dots"></span></span>
+            </div>
+        `;
+    }
+
+    function collapseWave(containerEl) {
+        const svg = containerEl.querySelector('.wave-svg');
+        const path = containerEl.querySelector('.wave-path');
+        if (!svg || !path) return;
+        // Stop the SMIL animation
+        const anim = path.querySelector('animate');
+        if (anim) anim.remove();
+        // Add collapse class and set final flat state
+        svg.classList.add('collapsed');
+        path.setAttribute('d', 'M 0 15 Q 15 20, 30 15 T 60 15');
+        setTimeout(() => {
+            path.setAttribute('d', 'M 0 15 L 60 15');
+            path.style.opacity = '0.3';
+        }, 300);
     }
 
     // ---------- MESSAGES & RENDERING ----------
@@ -925,21 +1003,7 @@
 
         const contentEl = document.createElement('div');
         contentEl.className = 'message-content';
-
-        // Detect saved image messages
-        const imageMatch = content.match(/^\[Image: (.+)\]\n(https?:\S+)/);
-        if (role === 'ai' && imageMatch) {
-            const prompt = imageMatch[1];
-            const url = imageMatch[2];
-            contentEl.innerHTML = `
-                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
-                    🎨 "${escapeHtml(prompt)}"
-                </div>
-                <img src="${url}" alt="${escapeHtml(prompt)}" style="max-width:100%; border-radius:16px; display:block; margin-top:4px;">
-            `;
-        } else {
-            contentEl.innerHTML = role === 'ai' ? renderMarkdown(content) : escapeHtml(content).replace(/\n/g, '<br>');
-        }
+        contentEl.innerHTML = role === 'ai' ? renderMarkdown(content) : escapeHtml(content).replace(/\n/g, '<br>');
 
         const timeEl = document.createElement('div');
         timeEl.className = 'message-time';
@@ -962,7 +1026,6 @@
             contentEl.appendChild(actions);
         }
 
-        // Hover-only copy icon on user messages
         if (role === 'user') {
             const copyIcon = document.createElement('div');
             copyIcon.className = 'user-copy-icon';
@@ -1035,122 +1098,6 @@
         el.textContent = open ? '▸' : '▾';
     }
     window.toggleReasoning = toggleReasoning;
-
-    // ---------- IMAGE GENERATION ----------
-    const IMAGE_TRIGGERS = [
-        'give me an image', 'generate an image', 'create an image',
-        'show me an image', 'make an image', 'draw', 'render',
-        'picture of', 'photo of', 'image of'
-    ];
-
-    function looksLikeImageRequest(text) {
-        const lower = text.toLowerCase();
-        return IMAGE_TRIGGERS.some(kw => lower.includes(kw));
-    }
-
-    function extractImagePrompt(text) {
-        let prompt = text;
-        IMAGE_TRIGGERS.forEach(kw => {
-            prompt = prompt.replace(new RegExp(kw, 'gi'), '');
-        });
-        return prompt.trim() || text.trim();
-    }
-
-    function buildImageUrl(prompt, seed) {
-        return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&seed=${seed}&nologo=false`;
-    }
-
-    async function generateImage(userText) {
-        const chat = getActiveChat();
-        if (!chat) return;
-
-        const prompt = extractImagePrompt(userText);
-        const seed = Math.floor(Math.random() * 1e9);
-
-        addMessage('user', userText);
-        appendMessageEl('user', userText);
-        scrollToBottom(true);
-
-        const { contentEl } = appendMessageEl('ai', '');
-        contentEl.innerHTML = '<span class="cursor">🎨 Generating image…</span>';
-        scrollToBottom(true);
-
-        const imageUrl = buildImageUrl(prompt, seed);
-
-        const img = new Image();
-        img.onload = () => {
-            contentEl.innerHTML = `
-                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
-                    🎨 Quantum-seeded · seed ${seed} · "${escapeHtml(prompt)}"
-                </div>
-                <img src="${imageUrl}" alt="${escapeHtml(prompt)}"
-                     style="max-width:100%; border-radius:16px; display:block; margin-top:4px;">
-            `;
-
-            const actions = document.createElement('div');
-            actions.className = 'message-actions';
-            actions.innerHTML = `
-                <div class="message-action" data-action="download"><i class="fas fa-download"></i> Download</div>
-                <div class="message-action" data-action="copy-url"><i class="fas fa-link"></i> Copy URL</div>
-                <div class="message-action" data-action="regen-img"><i class="fas fa-rotate-right"></i> Regenerate</div>
-            `;
-            actions.querySelector('[data-action="download"]').onclick = () => {
-                const a = document.createElement('a');
-                a.href = imageUrl;
-                a.download = `luvuno-${seed}.png`;
-                a.target = '_blank';
-                a.click();
-                toast('✅ Download started');
-            };
-            actions.querySelector('[data-action="copy-url"]').onclick = () => {
-                navigator.clipboard.writeText(imageUrl);
-                toast('✅ Image URL copied');
-            };
-            actions.querySelector('[data-action="regen-img"]').onclick = () => regenerateImage(prompt);
-            contentEl.appendChild(actions);
-
-            addMessage('ai', `[Image: ${prompt}]\n${imageUrl}`);
-            saveState();
-            scrollToBottom(true);
-        };
-        img.onerror = () => {
-            contentEl.innerHTML = `
-                <p style="color:var(--danger);">⚠️ Image generation failed. Pollinations free tier may be rate-limited.</p>
-                <p style="font-size:12px; color:var(--text-secondary);">Wait a few seconds and try again, or rephrase.</p>
-            `;
-            addMessage('ai', '[Image generation failed]');
-            saveState();
-        };
-        img.src = imageUrl;
-    }
-
-    async function regenerateImage(prompt) {
-        if (state.isStreaming) return;
-        const seed = Math.floor(Math.random() * 1e9);
-        const imageUrl = buildImageUrl(prompt, seed);
-
-        const { contentEl } = appendMessageEl('ai', '');
-        contentEl.innerHTML = '<span class="cursor">🎨 Regenerating…</span>';
-        scrollToBottom(true);
-
-        const img = new Image();
-        img.onload = () => {
-            contentEl.innerHTML = `
-                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
-                    🎨 Regenerated · seed ${seed} · "${escapeHtml(prompt)}"
-                </div>
-                <img src="${imageUrl}" alt="${escapeHtml(prompt)}"
-                     style="max-width:100%; border-radius:16px; display:block;">
-            `;
-            addMessage('ai', `[Image: ${prompt}]\n${imageUrl}`);
-            saveState();
-            scrollToBottom(true);
-        };
-        img.onerror = () => {
-            contentEl.innerHTML = '<p style="color:var(--danger);">⚠️ Regeneration failed. Rate-limited — wait a moment.</p>';
-        };
-        img.src = imageUrl;
-    }
 
     // ---------- TEXT BACKEND (POLLINATIONS) ----------
     async function fetchAiReply(userMessage, context = '') {
@@ -1241,15 +1188,6 @@
         if (state.isStreaming) return;
         const input = $('#chatInput');
         const text = input.value.trim();
-
-        // Image intent check first
-        if (text && looksLikeImageRequest(text)) {
-            input.value = '';
-            input.style.height = 'auto';
-            await generateImage(text);
-            return;
-        }
-
         const fileContext = state.attachedFiles.map((f) => `[File: ${f.name}]\n${f.content}`).join('\n\n');
         if (!text && !fileContext) return;
 
@@ -1267,9 +1205,17 @@
 
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
-        contentEl.innerHTML = '<span class="cursor">Thinking...</span>';
+
+        // Show the wave collapse thinking animation
+        showWaveThinking(contentEl);
+        scrollToBottom(true);
 
         const reply = await fetchAiReply(text, fileContext);
+
+        // Collapse the wave, then start streaming
+        collapseWave(contentEl);
+        await new Promise(r => setTimeout(r, 400));
+
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         const fullReply = prefix + reply;
 
@@ -1292,9 +1238,13 @@
         renderActiveChat();
 
         const container = $('#messagesContainer').lastElementChild.querySelector('.message-content');
-        container.innerHTML = '<span class="cursor">Thinking...</span>';
+        showWaveThinking(container);
+        scrollToBottom(true);
 
         const reply = await fetchAiReply(lastUser.content);
+        collapseWave(container);
+        await new Promise(r => setTimeout(r, 400));
+
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         streamReply(prefix + reply, container);
     }
@@ -1456,19 +1406,19 @@
 
     // ---------- SKILLS ----------
     const PRIMARY_SKILLS = [
-        { icon: 'fa-wand-magic-sparkles', emoji: '📝', label: 'Summarize', prompt: 'Summarize the following text:' },
-        { icon: 'fa-language', emoji: '🌍', label: 'Translate', prompt: 'Translate to isiZulu:' },
-        { icon: 'fa-code', emoji: '💻', label: 'Code', prompt: 'Write a JavaScript function that ' },
-        { icon: 'fa-lightbulb', emoji: '💡', label: 'Explain', prompt: 'Explain in simple terms: ' },
-        { icon: 'fa-list-check', emoji: '🗂️', label: 'Plan', prompt: 'Create a step-by-step plan for ' },
+        { emoji: '📝', label: 'Summarize', prompt: 'Summarize the following text:' },
+        { emoji: '🌍', label: 'Translate', prompt: 'Translate to isiZulu:' },
+        { emoji: '💻', label: 'Code', prompt: 'Write a JavaScript function that ' },
+        { emoji: '💡', label: 'Explain', prompt: 'Explain in simple terms: ' },
+        { emoji: '🗂️', label: 'Plan', prompt: 'Create a step-by-step plan for ' },
     ];
     const MORE_SKILLS = [
-        { icon: 'fa-envelope', emoji: '📧', label: 'Email', prompt: 'Draft an email about ' },
-        { icon: 'fa-pen-fancy', emoji: '✍️', label: 'Rewrite', prompt: 'Rewrite this more clearly: ' },
-        { icon: 'fa-chart-line', emoji: '📊', label: 'Analyze', prompt: 'Analyze the data and give insights: ' },
-        { icon: 'fa-brain', emoji: '🧠', label: 'Brainstorm', prompt: 'Brainstorm 10 ideas for ' },
-        { icon: 'fa-quote-right', emoji: '💬', label: 'Quote', prompt: 'Give me a quote about ' },
-        { icon: 'fa-shield-halved', emoji: '🛡️', label: 'Security', prompt: 'Review this for security issues: ' },
+        { emoji: '📧', label: 'Email', prompt: 'Draft an email about ' },
+        { emoji: '✍️', label: 'Rewrite', prompt: 'Rewrite this more clearly: ' },
+        { emoji: '📊', label: 'Analyze', prompt: 'Analyze the data and give insights: ' },
+        { emoji: '🧠', label: 'Brainstorm', prompt: 'Brainstorm 10 ideas for ' },
+        { emoji: '💬', label: 'Quote', prompt: 'Give me a quote about ' },
+        { emoji: '🛡️', label: 'Security', prompt: 'Review this for security issues: ' },
     ];
 
     function renderSkills() {
@@ -1576,10 +1526,7 @@
 
         $('#voiceBtn').onclick = toggleVoice;
         $('#attachBtn').onclick = () => $('#fileInput').click();
-        $('#imageBtn').onclick = () => $('#imageInput').click();
-
         $('#fileInput').onchange = (e) => handleFiles(e.target.files);
-        $('#imageInput').onchange = (e) => handleFiles(e.target.files);
 
         $('#messagesContainer').onscroll = updateScrollBtn;
         $('#scrollDownBtn').onclick = () => scrollToBottom(true);
