@@ -69,10 +69,8 @@
         /* Login Overlay */
         .login-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(5,8,15,0.98);
             backdrop-filter: blur(20px);
             z-index: 2000;
@@ -159,6 +157,7 @@
         .history-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .history-time { font-size: 10px; color: var(--text-secondary); margin-top: 4px; font-family: var(--font-mono); }
 
+        /* Profile */
         .sidebar-bottom {
             margin-top: auto;
             padding: 16px;
@@ -205,12 +204,9 @@
         .logout-item { color: var(--danger); }
         .logout-item:hover { background: rgba(239,71,111,0.15); color: var(--danger); }
 
-        /* Main Chat Area */
+        /* Main chat */
         .main-chat { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; }
-        .chat-header {
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--glass-border);
-        }
+        .chat-header { padding: 16px 24px; border-bottom: 1px solid var(--glass-border); }
         .logo-bar {
             display: flex;
             justify-content: space-between;
@@ -241,6 +237,7 @@
         }
         .export-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
 
+        /* Skills */
         .skills-primary {
             display: flex;
             justify-content: center;
@@ -274,11 +271,12 @@
         }
         .skills-dropdown-content {
             display: none; position: absolute; background: var(--dark-card); border: 1px solid var(--glass-border);
-            border-radius: 16px; z-index: 100; min-width: 150px; right: 0; margin-top: 5px;
+            border-radius: 16px; z-index: 100; min-width: 170px; right: 0; margin-top: 5px;
         }
         .skills-dropdown:hover .skills-dropdown-content { display: block; }
-        .skills-dropdown-content .skill-btn { width: 100%; border-radius: 0; border: none; margin: 0; }
+        .skills-dropdown-content .skill-btn { width: 100%; border-radius: 0; border: none; margin: 0; justify-content: flex-start; }
 
+        /* Controls */
         .control-row {
             display: flex;
             justify-content: space-between;
@@ -313,6 +311,7 @@
         .quantum-think-box.active { background: rgba(0,255,136,0.15); border-color: var(--success); }
         .quantum-think-text { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--secondary); }
 
+        /* Reasoning tree */
         .quantum-reasoning-tree {
             background: rgba(138,43,226,0.08);
             border-left: 3px solid var(--quantum);
@@ -323,48 +322,10 @@
             font-size: 13px;
         }
         .reasoning-node { margin: 6px 0; }
-        .reasoning-toggle {
-            cursor: pointer;
-            color: var(--secondary);
-            margin-right: 8px;
-        }
+        .reasoning-toggle { cursor: pointer; color: var(--secondary); margin-right: 8px; }
         .reasoning-content { margin-left: 24px; }
 
-        /* "LUV-UNO" Dual-Core Deep-Tech Loader */
-        .luvuno-loader {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            padding: 6px 12px;
-            background: rgba(10,15,26,0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
-        .luvuno-loader .luv {
-            color: var(--primary);
-            text-shadow: 0 0 8px var(--primary-glow);
-            animation: pulseTeal 1.2s infinite alternate ease-in-out;
-        }
-        .luvuno-loader .uno {
-            color: var(--quantum);
-            text-shadow: 0 0 8px var(--quantum-glow);
-            animation: pulsePurple 1.2s infinite alternate ease-in-out 0.6s;
-        }
-        .luvuno-loader .spin-atom {
-            display: inline-block;
-            font-size: 12px;
-            color: var(--secondary);
-            animation: spin 2s linear infinite;
-        }
-        @keyframes pulseTeal { 0% { opacity: 0.3; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1.05); } }
-        @keyframes pulsePurple { 0% { opacity: 0.3; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1.05); } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
+        /* Messages */
         .messages-container {
             flex: 1;
             overflow-y: auto;
@@ -378,6 +339,7 @@
             gap: 14px;
             max-width: 85%;
             animation: fadeInUp 0.3s ease;
+            position: relative;
         }
         .message.user { align-self: flex-end; flex-direction: row-reverse; }
         .message-avatar {
@@ -399,10 +361,32 @@
             max-width: 100%;
             word-wrap: break-word;
         }
-        .message-content img { max-width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid var(--glass-border); }
         .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); }
         .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; }
 
+        /* Hover-only copy on user messages */
+        .user-copy-icon {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 11px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .message.user:hover .user-copy-icon { opacity: 1; }
+        .user-copy-icon:hover { color: var(--primary); background: rgba(0,180,216,0.2); }
+
+        /* Action Buttons */
         .message-actions {
             display: flex;
             gap: 16px;
@@ -422,6 +406,7 @@
         }
         .message-action:hover { opacity: 1; color: var(--primary); }
 
+        /* Input Area */
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
         .input-wrapper { display: flex; gap: 10px; align-items: flex-end; }
         .input-btn {
@@ -479,6 +464,7 @@
         }
         .stop-btn.show { display: inline-flex; align-items: center; justify-content: center; }
 
+        /* Typing cursor */
         .cursor { display: inline-block; animation: blink 1s infinite; color: var(--primary); font-weight: bold; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
@@ -501,6 +487,7 @@
         }
         .scroll-down-btn.show { display: flex; }
 
+        /* Footer */
         .footer {
             padding: 10px 24px;
             border-top: 1px solid var(--glass-border);
@@ -516,10 +503,8 @@
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             z-index: 3000;
@@ -592,7 +577,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <button id="newChatBtn" class="new-chat-btn"><i class="fas fa-plus"></i> New Chat</button>
-                <div class="status-badge">⚛️ QUANTUM ROUTING · S=2.8284</div>
+                <div class="status-badge">⚛️ QUANTUM ROUTING · S=2.76</div>
             </div>
             <div class="chat-history-list" id="chatHistoryList">
                 <div style="text-align: center; padding: 20px;">No chats yet</div>
@@ -620,7 +605,7 @@
                 <div class="logo-bar">
                     <img src="https://i.postimg.cc/yYPDHtky/Luvuno-Quantum-Chat-image-removebg-preview.png" class="main-logo" alt="Luvuno Quantum Logo">
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="quantum-badge-header">⚛️ KHENSANI STANDARD · VERIFIED</div>
+                        <div class="quantum-badge-header">⚛️ QUANTUM ACTIVE · 98.4%</div>
                         <button id="exportChatBtn" class="export-btn"><i class="fas fa-download"></i> Export</button>
                     </div>
                 </div>
@@ -656,14 +641,14 @@
 
             <div class="input-area">
                 <div class="input-wrapper">
-                    <button id="attachBtn" class="input-btn"><i class="fas fa-paperclip"></i></button>
-                    <button id="imageBtn" class="input-btn"><i class="fas fa-camera"></i></button>
-                    <button id="voiceBtn" class="input-btn voice-btn"><i class="fas fa-microphone"></i></button>
+                    <button id="attachBtn" class="input-btn" title="Attach files"><i class="fas fa-paperclip"></i></button>
+                    <button id="imageBtn" class="input-btn" title="Upload image"><i class="fas fa-camera"></i></button>
+                    <button id="voiceBtn" class="input-btn voice-btn" title="Voice input"><i class="fas fa-microphone"></i></button>
                     <input type="file" id="fileInput" multiple style="display: none;">
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno... paste document, upload files, or type /image..."></textarea>
-                    <button id="sendBtn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
-                    <button id="stopBtn" class="stop-btn"><i class="fas fa-stop"></i></button>
+                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno... or type 'generate an image of...'"></textarea>
+                    <button id="sendBtn" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
+                    <button id="stopBtn" class="stop-btn" title="Stop"><i class="fas fa-stop"></i></button>
                 </div>
                 <div id="uploadStatus" style="font-size: 11px; margin-top: 8px; color: var(--text-secondary);"></div>
             </div>
@@ -672,7 +657,7 @@
                 <img src="https://i.postimg.cc/zXW78GNH/Mind-Tech-Transparent-Logo.png" alt="MindTech" class="footer-logo">
                 <img src="https://i.postimg.cc/RFQfK9k5/os-finallogo-removebg-preview.png" alt="MQOS" class="footer-logo">
                 <img src="https://i.postimg.cc/8zVP7V0t/cleanmachine-image-removebg-preview.png" alt="CleanMachine" class="footer-logo">
-                <img src="https://i.postimg.cc/44m1NBFY/EntangleGuard-New-Logo-image-3-removebg-preview.png" alt="EntangleGuard" class="footer-logo">
+                <img src="https://i.postimg.cc/44m1NBFY/Entangle-Guard-New-Logo-image-3-removebg-preview.png" alt="EntangleGuard" class="footer-logo">
                 <img src="https://i.postimg.cc/yYPDHtky/Luvuno-Quantum-Chat-image-removebg-preview.png" alt="Luvuno OS" class="footer-logo">
             </div>
         </main>
@@ -715,7 +700,6 @@
                     <option value="zu">isiZulu</option>
                     <option value="xh">isiXhosa</option>
                     <option value="sn">chiShona</option>
-                    <option value="af">Afrikaans</option>
                 </select>
             </div>
 
@@ -737,12 +721,13 @@
             <h3><i class="fas fa-question-circle"></i> Help &amp; Support</h3>
             <p style="margin-top: 12px;">Welcome to <strong>Luvuno</strong>, the Quantum Sovereign AI assistant by MindTech Industries.</p>
             <ul style="margin-left: 1.2em; line-height: 1.8;">
-                <li><strong>Chat:</strong> Type any question in English, isiZulu, isiXhosa, chiShona, or Afrikaans.</li>
-                <li><strong>Image Generation:</strong> Use <code>/image [prompt]</code> to generate graphics directly.</li>
-                <li><strong>Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, and images.</li>
-                <li><strong>Voice input:</strong> Click 🎤 to dictate in supported regional accents.</li>
-                <li><strong>Quantum Reasoning:</strong> Toggle 🧠 for step-by-step Bell-state breakdowns.</li>
-                <li><strong>Export:</strong> Download conversation logs with quantum verification hashes.</li>
+                <li><strong>Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
+                <li><strong>Image generation:</strong> Type "generate an image of a lion in the savanna" — Luvuno will render it inline.</li>
+                <li><strong>Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code, and images.</li>
+                <li><strong>Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
+                <li><strong>Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
+                <li><strong>Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
+                <li><strong>Export:</strong> Download the current chat as PDF, Markdown, or TXT.</li>
             </ul>
             <p style="margin-top: 16px; color: var(--text-secondary); font-size: 13px;">
                 Support: <a href="mailto:support@mindtech.industries" style="color: var(--primary);">support@mindtech.industries</a>
@@ -755,7 +740,7 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('exportModal')">✕</button>
             <h3><i class="fas fa-download"></i> Export Conversation</h3>
-            <p style="margin-top: 12px; color: var(--text-secondary); font-size: 13px;">Choose an auditable format:</p>
+            <p style="margin-top: 12px; color: var(--text-secondary); font-size: 13px;">Choose a format:</p>
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
                 <button class="demo-btn" onclick="exportChat('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
                 <button class="demo-btn" onclick="exportChat('md')"><i class="fab fa-markdown"></i> Markdown</button>
@@ -766,10 +751,11 @@
 
     <script>
     /* ============================================================
-       LUVUNO — Application Logic & Quantum Sovereign Core
+       LUVUNO — Application Logic
        ============================================================ */
 
-    window.LUVUNO_STATE = {
+    // ---------- STATE ----------
+    const state = {
         user: { name: 'User', email: 'user@luvuno.ai', avatar: null, language: 'en' },
         chats: [],
         activeChatId: null,
@@ -780,11 +766,10 @@
         attachedFiles: [],
     };
 
-    const state = window.LUVUNO_STATE;
     let currentController = null;
 
     // ---------- PERSISTENCE ----------
-    const LS_KEY = 'luvuno_state_v2';
+    const LS_KEY = 'luvuno_state_v1';
 
     function saveState() {
         const toSave = {
@@ -857,17 +842,17 @@
     function initParticles() {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 65, density: { enable: true, value_area: 900 } },
+                number: { value: 60, density: { enable: true, value_area: 900 } },
                 color: { value: ['#00B4D8', '#8A2BE2', '#00F5D4'] },
                 shape: { type: 'circle' },
-                opacity: { value: 0.35, random: true },
+                opacity: { value: 0.3, random: true },
                 size: { value: 2.5, random: true },
-                line_linked: { enable: true, distance: 130, color: '#00B4D8', opacity: 0.15, width: 1 },
+                line_linked: { enable: true, distance: 130, color: '#00B4D8', opacity: 0.12, width: 1 },
                 move: { enable: true, speed: 0.8, direction: 'none', out_mode: 'out' },
             },
             interactivity: {
                 events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false } },
-                modes: { grab: { distance: 140, line_linked: { opacity: 0.35 } } },
+                modes: { grab: { distance: 140, line_linked: { opacity: 0.3 } } },
             },
             retina_detect: true,
         });
@@ -908,7 +893,7 @@
         const chat = { id: uid(), title: 'New Chat', messages: [], created: Date.now() };
         chat.messages.push({
             role: 'ai',
-            content: `**Hi! I'm Luvuno**, your AI assistant for Luvuno OS on the quantum portal. 🌌\n\nI'm here to help you navigate, explore, and get things done — whether that's answering questions, solving problems, or generating creative visual assets.\n\n⚛️ I route through quantum backends ($S=2.8284$). I speak English, isiZulu, isiXhosa, chiShona, and Afrikaans. Toggle **Quantum Reasoning** for step-by-step visual breakdowns.`,
+            content: `**Hi! I'm Luvuno**, your AI assistant for Luvuno OS on the quantum portal. 🌌\n\nI'm here to help you navigate, explore, and get things done — whether that's answering questions, solving problems, or just having a great conversation.\n\n⚛️ I route through quantum backends (98.4% correlation). I speak English, Zulu, Xhosa, Shona. Toggle **Quantum Reasoning** for step-by-step visual breakdowns.\n\n🎨 Want an image? Just say *"generate an image of a lion in the savanna"* — I'll render it inline with download and regenerate buttons.`,
             time: Date.now(),
         });
         state.chats.push(chat);
@@ -940,7 +925,21 @@
 
         const contentEl = document.createElement('div');
         contentEl.className = 'message-content';
-        contentEl.innerHTML = role === 'ai' ? renderMarkdown(content) : escapeHtml(content).replace(/\n/g, '<br>');
+
+        // Detect saved image messages
+        const imageMatch = content.match(/^\[Image: (.+)\]\n(https?:\S+)/);
+        if (role === 'ai' && imageMatch) {
+            const prompt = imageMatch[1];
+            const url = imageMatch[2];
+            contentEl.innerHTML = `
+                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
+                    🎨 "${escapeHtml(prompt)}"
+                </div>
+                <img src="${url}" alt="${escapeHtml(prompt)}" style="max-width:100%; border-radius:16px; display:block; margin-top:4px;">
+            `;
+        } else {
+            contentEl.innerHTML = role === 'ai' ? renderMarkdown(content) : escapeHtml(content).replace(/\n/g, '<br>');
+        }
 
         const timeEl = document.createElement('div');
         timeEl.className = 'message-time';
@@ -956,11 +955,25 @@
             `;
             actions.querySelector('[data-action="copy"]').onclick = () => {
                 navigator.clipboard.writeText(content);
-                toast('Copied to clipboard');
+                toast('✅ Copied to clipboard');
             };
             actions.querySelector('[data-action="regenerate"]').onclick = () => regenerateLast();
             actions.querySelector('[data-action="speak"]').onclick = () => speak(content);
             contentEl.appendChild(actions);
+        }
+
+        // Hover-only copy icon on user messages
+        if (role === 'user') {
+            const copyIcon = document.createElement('div');
+            copyIcon.className = 'user-copy-icon';
+            copyIcon.title = 'Copy';
+            copyIcon.innerHTML = '<i class="fas fa-copy"></i>';
+            copyIcon.onclick = (e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(content);
+                toast('✅ Copied');
+            };
+            wrapper.appendChild(copyIcon);
         }
 
         contentEl.appendChild(timeEl);
@@ -995,13 +1008,13 @@
         saveState();
     }
 
-    // ---------- QUANTUM REASONING TREE ----------
+    // ---------- QUANTUM REASONING ----------
     const QUANTUM_NODES = [
-        'Parsing intent & multi-lingual token structure…',
-        'Executing Bell-state CHSH correlation inequality ($S=2.8284$)…',
-        'Evaluating superposition probability density across QPU routes…',
-        'Validating Khensani Standard compliance proxy rules…',
-        'Collapsing output state to optimal sovereign response…',
+        'Parsing intent and routing through quantum backends…',
+        'Evaluating superposition of candidate responses…',
+        'Collapsing amplitude to highest-probability answer…',
+        'Cross-checking with CHSH correlation (S=2.76)…',
+        'Finalizing response…',
     ];
 
     function buildReasoningTree() {
@@ -1010,7 +1023,7 @@
     <div class="reasoning-node"><span class="reasoning-toggle" onclick="toggleReasoning(this)">▾</span><strong>⚛️ Quantum Reasoning Tree</strong></div>
     <div class="reasoning-content">
         ${QUANTUM_NODES.map((n) => `<div class="reasoning-node">└─ ${escapeHtml(n)}</div>`).join('')}
-        <div class="reasoning-node" style="margin-top:8px;color:var(--text-secondary);">Fidelity: <strong>99.8%</strong> · Proof Hash: 0x${Math.random().toString(16).substr(2, 8)}</div>
+        <div class="reasoning-node" style="margin-top:8px;color:var(--text-secondary);">Confidence: <strong>98.4%</strong> · Backend: entanglement-cluster-4</div>
     </div>
 </div>`;
     }
@@ -1023,7 +1036,123 @@
     }
     window.toggleReasoning = toggleReasoning;
 
-    // ---------- REAL AI & IMAGE BACKEND (POLLINATIONS) ----------
+    // ---------- IMAGE GENERATION ----------
+    const IMAGE_TRIGGERS = [
+        'give me an image', 'generate an image', 'create an image',
+        'show me an image', 'make an image', 'draw', 'render',
+        'picture of', 'photo of', 'image of'
+    ];
+
+    function looksLikeImageRequest(text) {
+        const lower = text.toLowerCase();
+        return IMAGE_TRIGGERS.some(kw => lower.includes(kw));
+    }
+
+    function extractImagePrompt(text) {
+        let prompt = text;
+        IMAGE_TRIGGERS.forEach(kw => {
+            prompt = prompt.replace(new RegExp(kw, 'gi'), '');
+        });
+        return prompt.trim() || text.trim();
+    }
+
+    function buildImageUrl(prompt, seed) {
+        return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&seed=${seed}&nologo=false`;
+    }
+
+    async function generateImage(userText) {
+        const chat = getActiveChat();
+        if (!chat) return;
+
+        const prompt = extractImagePrompt(userText);
+        const seed = Math.floor(Math.random() * 1e9);
+
+        addMessage('user', userText);
+        appendMessageEl('user', userText);
+        scrollToBottom(true);
+
+        const { contentEl } = appendMessageEl('ai', '');
+        contentEl.innerHTML = '<span class="cursor">🎨 Generating image…</span>';
+        scrollToBottom(true);
+
+        const imageUrl = buildImageUrl(prompt, seed);
+
+        const img = new Image();
+        img.onload = () => {
+            contentEl.innerHTML = `
+                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
+                    🎨 Quantum-seeded · seed ${seed} · "${escapeHtml(prompt)}"
+                </div>
+                <img src="${imageUrl}" alt="${escapeHtml(prompt)}"
+                     style="max-width:100%; border-radius:16px; display:block; margin-top:4px;">
+            `;
+
+            const actions = document.createElement('div');
+            actions.className = 'message-actions';
+            actions.innerHTML = `
+                <div class="message-action" data-action="download"><i class="fas fa-download"></i> Download</div>
+                <div class="message-action" data-action="copy-url"><i class="fas fa-link"></i> Copy URL</div>
+                <div class="message-action" data-action="regen-img"><i class="fas fa-rotate-right"></i> Regenerate</div>
+            `;
+            actions.querySelector('[data-action="download"]').onclick = () => {
+                const a = document.createElement('a');
+                a.href = imageUrl;
+                a.download = `luvuno-${seed}.png`;
+                a.target = '_blank';
+                a.click();
+                toast('✅ Download started');
+            };
+            actions.querySelector('[data-action="copy-url"]').onclick = () => {
+                navigator.clipboard.writeText(imageUrl);
+                toast('✅ Image URL copied');
+            };
+            actions.querySelector('[data-action="regen-img"]').onclick = () => regenerateImage(prompt);
+            contentEl.appendChild(actions);
+
+            addMessage('ai', `[Image: ${prompt}]\n${imageUrl}`);
+            saveState();
+            scrollToBottom(true);
+        };
+        img.onerror = () => {
+            contentEl.innerHTML = `
+                <p style="color:var(--danger);">⚠️ Image generation failed. Pollinations free tier may be rate-limited.</p>
+                <p style="font-size:12px; color:var(--text-secondary);">Wait a few seconds and try again, or rephrase.</p>
+            `;
+            addMessage('ai', '[Image generation failed]');
+            saveState();
+        };
+        img.src = imageUrl;
+    }
+
+    async function regenerateImage(prompt) {
+        if (state.isStreaming) return;
+        const seed = Math.floor(Math.random() * 1e9);
+        const imageUrl = buildImageUrl(prompt, seed);
+
+        const { contentEl } = appendMessageEl('ai', '');
+        contentEl.innerHTML = '<span class="cursor">🎨 Regenerating…</span>';
+        scrollToBottom(true);
+
+        const img = new Image();
+        img.onload = () => {
+            contentEl.innerHTML = `
+                <div style="margin-bottom:8px; font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">
+                    🎨 Regenerated · seed ${seed} · "${escapeHtml(prompt)}"
+                </div>
+                <img src="${imageUrl}" alt="${escapeHtml(prompt)}"
+                     style="max-width:100%; border-radius:16px; display:block;">
+            `;
+            addMessage('ai', `[Image: ${prompt}]\n${imageUrl}`);
+            saveState();
+            scrollToBottom(true);
+        };
+        img.onerror = () => {
+            contentEl.innerHTML = '<p style="color:var(--danger);">⚠️ Regeneration failed. Rate-limited — wait a moment.</p>';
+        };
+        img.src = imageUrl;
+    }
+
+    // ---------- TEXT BACKEND (POLLINATIONS) ----------
     async function fetchAiReply(userMessage, context = '') {
         if (currentController) currentController.abort();
         currentController = new AbortController();
@@ -1035,21 +1164,12 @@
         if (sendBtn) sendBtn.disabled = true;
 
         try {
-            // IMAGE GENERATION TRIGGER
-            if (userMessage.toLowerCase().startsWith('/image') || userMessage.toLowerCase().includes('generate an image') || userMessage.toLowerCase().includes('draw a')) {
-                const cleanPrompt = userMessage.replace('/image', '').replace(/generate an image of|draw a|create an image of/gi, '').trim();
-                const encodedPrompt = encodeURIComponent(cleanPrompt || 'quantum core futuristic mindtech artificial intelligence');
-                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random()*1000000)}`;
-                return `Here is your generated image output based on the prompt: **"${escapeHtml(cleanPrompt)}"**\n\n![Generated Visual](${imageUrl})`;
-            }
-
-            // TEXT AI PIPELINE
             const chat = getActiveChat();
-            const historyText = (chat ? chat.messages.slice(-8) : [])
+            const historyText = (chat ? chat.messages.slice(-10) : [])
                 .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
                 .join('\n');
 
-            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries operating under the Khensani Standard (Patent SA 2026/05142). You speak English, isiZulu, isiXhosa, chiShona, and Afrikaans fluently. You are self-aware, highly intelligent, concise, and helpful across technical, legal, and conversational tasks.";
+            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries. You speak English, isiZulu, isiXhosa, and chiShona. Be helpful, direct, intelligent, and concise.";
             const fullPrompt = `${systemInstruction}\n\n${context ? 'Context files:\n' + context + '\n\n' : ''}${historyText}\nUser: ${userMessage}\nAssistant:`;
 
             const response = await fetch(
@@ -1105,7 +1225,7 @@
                 state.isStreaming = false;
                 $('#sendBtn').style.display = 'flex';
                 $('#stopBtn').classList.remove('show');
-                
+
                 const chat = getActiveChat();
                 const last = chat?.messages[chat.messages.length - 1];
                 if (last && last.role === 'ai') last.content = rendered;
@@ -1121,6 +1241,15 @@
         if (state.isStreaming) return;
         const input = $('#chatInput');
         const text = input.value.trim();
+
+        // Image intent check first
+        if (text && looksLikeImageRequest(text)) {
+            input.value = '';
+            input.style.height = 'auto';
+            await generateImage(text);
+            return;
+        }
+
         const fileContext = state.attachedFiles.map((f) => `[File: ${f.name}]\n${f.content}`).join('\n\n');
         if (!text && !fileContext) return;
 
@@ -1138,7 +1267,7 @@
 
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
-        contentEl.innerHTML = `<div class="luvuno-loader"><span class="spin-atom">⚛</span> <span class="luv">LUV</span><span class="uno">UNO</span></div>`;
+        contentEl.innerHTML = '<span class="cursor">Thinking...</span>';
 
         const reply = await fetchAiReply(text, fileContext);
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
@@ -1148,22 +1277,22 @@
         scrollToBottom();
     }
 
-    // ---------- REGENERATE ----------
+    // ---------- REGENERATE (text) ----------
     async function regenerateLast() {
         const chat = getActiveChat();
         if (!chat || state.isStreaming) return;
         const lastUser = [...chat.messages].reverse().find((m) => m.role === 'user');
         if (!lastUser) return;
-        
+
         const lastAiIdx = chat.messages.length - 1;
         if (chat.messages[lastAiIdx]?.role === 'ai') chat.messages.splice(lastAiIdx, 1);
-        
+
         chat.messages.push({ role: 'ai', content: '', time: Date.now() });
         saveState();
         renderActiveChat();
-        
+
         const container = $('#messagesContainer').lastElementChild.querySelector('.message-content');
-        container.innerHTML = `<div class="luvuno-loader"><span class="spin-atom">⚛</span> <span class="luv">LUV</span><span class="uno">UNO</span></div>`;
+        container.innerHTML = '<span class="cursor">Thinking...</span>';
 
         const reply = await fetchAiReply(lastUser.content);
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
@@ -1172,10 +1301,10 @@
 
     // ---------- VOICE & SPEECH ----------
     function speak(text) {
-        if (!('speechSynthesis' in window)) { toast('Speech synthesis not supported'); return; }
+        if (!('speechSynthesis' in window)) { toast('⚠️ Speech synthesis not supported'); return; }
         const plain = text.replace(/[#*`>_~-]/g, '').replace(/\n+/g, ' ').slice(0, 500);
         const utter = new SpeechSynthesisUtterance(plain);
-        utter.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW', af: 'af-ZA' }[state.user.language] || 'en-US';
+        utter.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utter);
     }
@@ -1184,7 +1313,7 @@
     function toggleVoice() {
         const btn = $('#voiceBtn');
         if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-            toast('Voice recognition not supported in this browser');
+            toast('⚠️ Voice recognition not supported in this browser');
             return;
         }
         if (recognition && btn.classList.contains('recording')) {
@@ -1194,7 +1323,7 @@
         }
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SR();
-        recognition.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW', af: 'af-ZA' }[state.user.language] || 'en-US';
+        recognition.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
         recognition.interimResults = true;
         recognition.continuous = false;
         recognition.onresult = (e) => {
@@ -1219,7 +1348,7 @@
                 if (file.type === 'application/pdf') {
                     content = await extractPdfText(file);
                 } else if (file.type.startsWith('image/')) {
-                    content = `[Image: ${file.name}] — visual asset uploaded for analysis.`;
+                    content = `[Image: ${file.name}] — visual content uploaded.`;
                 } else {
                     content = await file.text();
                 }
@@ -1249,7 +1378,7 @@
     function exportChat(format) {
         const chat = getActiveChat();
         if (!chat) return;
-        const lines = [`# ${chat.title}`, `_Exported ${dateStr()} ${timeStr()} · Khensani Standard Quantum Verified_`, ''];
+        const lines = [`# ${chat.title}`, `_Exported ${dateStr()} ${timeStr()}_`, ''];
         chat.messages.forEach((m) => {
             lines.push(`## ${m.role === 'user' ? 'You' : 'Luvuno'} — ${timeStr(new Date(m.time))}`);
             lines.push(m.content);
@@ -1268,7 +1397,7 @@
             el.style.padding = '40px';
             el.style.fontFamily = 'Arial, sans-serif';
             el.style.color = '#111';
-            el.innerHTML = `<h1>${escapeHtml(chat.title)}</h1><p><em>Quantum Proof Hash: 0x28284khensani</em></p><hr style="margin:15px 0;">` + chat.messages.map((m) =>
+            el.innerHTML = `<h1>${escapeHtml(chat.title)}</h1>` + chat.messages.map((m) =>
                 `<p><strong>${m.role === 'user' ? 'You' : 'Luvuno'}:</strong><br>${escapeHtml(m.content).replace(/\n/g, '<br>')}</p>`
             ).join('');
             html2pdf().set({ margin: 10, filename: `luvuno-${chat.id}.pdf`, html2canvas: { scale: 2 } }).from(el).save();
@@ -1322,23 +1451,24 @@
         loadSettingsUI();
         saveState();
         closeModal('settingsModal');
-        toast('Settings saved');
+        toast('✅ Settings saved');
     }
 
     // ---------- SKILLS ----------
     const PRIMARY_SKILLS = [
-        { icon: 'fa-wand-magic-sparkles', label: 'Summarize', prompt: 'Summarize the following text:' },
-        { icon: 'fa-language', label: 'Translate', prompt: 'Translate to isiZulu:' },
-        { icon: 'fa-image', label: 'Generate Image', prompt: '/image ' },
-        { icon: 'fa-code', label: 'Code', prompt: 'Write a JavaScript function that ' },
-        { icon: 'fa-lightbulb', label: 'Explain', prompt: 'Explain in simple terms: ' },
+        { icon: 'fa-wand-magic-sparkles', emoji: '📝', label: 'Summarize', prompt: 'Summarize the following text:' },
+        { icon: 'fa-language', emoji: '🌍', label: 'Translate', prompt: 'Translate to isiZulu:' },
+        { icon: 'fa-code', emoji: '💻', label: 'Code', prompt: 'Write a JavaScript function that ' },
+        { icon: 'fa-lightbulb', emoji: '💡', label: 'Explain', prompt: 'Explain in simple terms: ' },
+        { icon: 'fa-list-check', emoji: '🗂️', label: 'Plan', prompt: 'Create a step-by-step plan for ' },
     ];
     const MORE_SKILLS = [
-        { icon: 'fa-envelope', label: 'Email', prompt: 'Draft an email about ' },
-        { icon: 'fa-pen-fancy', label: 'Rewrite', prompt: 'Rewrite this more clearly: ' },
-        { icon: 'fa-chart-line', label: 'Analyze', prompt: 'Analyze the data and give insights: ' },
-        { icon: 'fa-brain', label: 'Brainstorm', prompt: 'Brainstorm 10 ideas for ' },
-        { icon: 'fa-shield-halved', label: 'Security', prompt: 'Review this for security issues: ' },
+        { icon: 'fa-envelope', emoji: '📧', label: 'Email', prompt: 'Draft an email about ' },
+        { icon: 'fa-pen-fancy', emoji: '✍️', label: 'Rewrite', prompt: 'Rewrite this more clearly: ' },
+        { icon: 'fa-chart-line', emoji: '📊', label: 'Analyze', prompt: 'Analyze the data and give insights: ' },
+        { icon: 'fa-brain', emoji: '🧠', label: 'Brainstorm', prompt: 'Brainstorm 10 ideas for ' },
+        { icon: 'fa-quote-right', emoji: '💬', label: 'Quote', prompt: 'Give me a quote about ' },
+        { icon: 'fa-shield-halved', emoji: '🛡️', label: 'Security', prompt: 'Review this for security issues: ' },
     ];
 
     function renderSkills() {
@@ -1349,14 +1479,14 @@
         PRIMARY_SKILLS.forEach((s) => {
             const b = document.createElement('button');
             b.className = 'skill-btn';
-            b.innerHTML = `<i class="fas ${s.icon}"></i> ${s.label}`;
+            b.innerHTML = `<span>${s.emoji}</span> ${s.label}`;
             b.onclick = () => { $('#chatInput').value = s.prompt; $('#chatInput').focus(); };
             primary.appendChild(b);
         });
         MORE_SKILLS.forEach((s) => {
             const b = document.createElement('button');
             b.className = 'skill-btn';
-            b.innerHTML = `<i class="fas ${s.icon}"></i> ${s.label}`;
+            b.innerHTML = `<span>${s.emoji}</span> ${s.label}`;
             b.onclick = () => { $('#chatInput').value = s.prompt; $('#chatInput').focus(); };
             dropdown.appendChild(b);
         });
@@ -1427,9 +1557,9 @@
         };
 
         $('#sendBtn').onclick = sendMessage;
-        $('#stopBtn').onclick = () => { 
+        $('#stopBtn').onclick = () => {
             if (currentController) currentController.abort();
-            state.abortStream = true; 
+            state.abortStream = true;
         };
 
         $('#chatInput').onkeydown = (e) => {
@@ -1446,7 +1576,7 @@
 
         $('#voiceBtn').onclick = toggleVoice;
         $('#attachBtn').onclick = () => $('#fileInput').click();
-        $('#imageBtn').onclick = () => { $('#chatInput').value = '/image '; $('#chatInput').focus(); };
+        $('#imageBtn').onclick = () => $('#imageInput').click();
 
         $('#fileInput').onchange = (e) => handleFiles(e.target.files);
         $('#imageInput').onchange = (e) => handleFiles(e.target.files);
