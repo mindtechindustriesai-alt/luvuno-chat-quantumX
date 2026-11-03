@@ -23,7 +23,7 @@
             --primary: #00B4D8;
             --primary-dark: #0096C7;
             --primary-glow: rgba(0,180,216,0.4);
-            --secondary: #00F5D4; /* The cool light blue */
+            --secondary: #00F5D4;
             --quantum: #8A2BE2;
             --quantum-glow: rgba(138,43,226,0.5);
             --success: #00FF88;
@@ -31,7 +31,7 @@
             --dark-bg: #05080F;
             --dark-card: #0A0F1A;
             --glass-border: rgba(0,180,216,0.2);
-            --text-primary: #E8EDF5; /* White body text */
+            --text-primary: #E8EDF5;
             --text-secondary: #8A99B0;
             --sidebar-width: 300px;
             --font-exo: 'Exo 2', sans-serif;
@@ -48,7 +48,6 @@
             font-size: var(--base-font-size);
         }
 
-        /* Global Markdown Styling */
         h1 { font-size: 1.5rem; font-weight: 700; margin: 0.6em 0 0.4em; color: var(--secondary); }
         h2 { font-size: 1.25rem; font-weight: 600; margin: 0.6em 0 0.4em; color: var(--secondary); }
         h3 { font-size: 1.1rem; font-weight: 600; margin: 0.5em 0 0.3em; color: var(--secondary); }
@@ -67,7 +66,6 @@
             backdrop-filter: blur(12px);
         }
 
-        /* Login Overlay */
         .login-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -111,7 +109,6 @@
         }
         .demo-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--quantum-glow); }
 
-        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             border-right: 1px solid var(--glass-border);
@@ -158,7 +155,6 @@
         .history-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--secondary); }
         .history-time { font-size: 10px; color: var(--text-secondary); margin-top: 4px; font-family: var(--font-mono); }
 
-        /* Profile */
         .sidebar-bottom {
             margin-top: auto;
             padding: 16px;
@@ -205,7 +201,6 @@
         .logout-item { color: var(--danger); }
         .logout-item:hover { background: rgba(239,71,111,0.15); color: var(--danger); }
 
-        /* Main chat */
         .main-chat { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; }
         .chat-header { padding: 16px 24px; border-bottom: 1px solid var(--glass-border); }
         .logo-bar {
@@ -238,7 +233,6 @@
         }
         .export-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
 
-        /* Skills */
         .skills-primary {
             display: flex;
             justify-content: center;
@@ -276,7 +270,6 @@
         .skills-dropdown:hover .skills-dropdown-content { display: block; }
         .skills-dropdown-content .skill-btn { width: 100%; border-radius: 0; border: none; margin: 0; justify-content: flex-start; }
 
-        /* Controls */
         .control-row {
             display: flex;
             justify-content: space-between;
@@ -311,7 +304,6 @@
         .quantum-think-box.active { background: rgba(0,255,136,0.15); border-color: var(--success); }
         .quantum-think-text { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--secondary); }
 
-        /* Reasoning tree */
         .quantum-reasoning-tree {
             background: rgba(138,43,226,0.08);
             border-left: 3px solid var(--quantum);
@@ -325,7 +317,6 @@
         .reasoning-toggle { cursor: pointer; color: var(--secondary); margin-right: 8px; }
         .reasoning-content { margin-left: 24px; color: var(--text-secondary); }
 
-        /* Messages */
         .messages-container {
             flex: 1;
             overflow-y: auto;
@@ -360,13 +351,12 @@
             line-height: 1.7;
             max-width: 100%;
             word-wrap: break-word;
-            color: var(--text-primary); /* White main text */
+            color: var(--text-primary);
         }
         .message-content img { max-width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid var(--glass-border); }
         .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); color: white; }
         .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; color: var(--text-secondary); }
 
-        /* Headings and Bold inside AI response get the light blue */
         .message.ai .message-content h1, 
         .message.ai .message-content h2, 
         .message.ai .message-content h3 { color: var(--secondary); border-bottom: 1px solid rgba(0, 245, 212, 0.2); padding-bottom: 4px; margin-bottom: 12px; }
@@ -376,7 +366,6 @@
         .message.ai .message-content blockquote { border-left: 3px solid var(--secondary); color: var(--secondary); opacity: 0.8; }
         .message.ai .message-content ul li::marker { color: var(--secondary); }
 
-        /* Hover-only copy on user messages */
         .user-copy-icon {
             position: absolute;
             top: 6px;
@@ -398,7 +387,7 @@
         .message.user:hover .user-copy-icon { opacity: 1; }
         .user-copy-icon:hover { color: var(--secondary); background: rgba(0,180,216,0.2); }
 
-        /* Minimalist Action Buttons */
+        /* Minimalist Action Buttons - Native Unicode */
         .message-actions {
             display: flex;
             gap: 8px;
@@ -416,10 +405,11 @@
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             background: rgba(255,255,255,0.03);
             border: 1px solid transparent;
+            font-family: var(--font-mono);
         }
         .message-action:hover { 
             color: var(--secondary); 
@@ -428,9 +418,6 @@
             transform: translateY(-1px);
         }
 
-        /* =========================================
-           OPTION C: WAVE COLLAPSE (Quantum Thinking)
-           ========================================= */
         .thinking-pill {
             display: inline-flex;
             align-items: center;
@@ -498,7 +485,6 @@
             border-color: rgba(0,255,136,0.3);
         }
 
-        /* Input Area */
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
         .input-wrapper { display: flex; gap: 10px; align-items: flex-end; }
         .input-btn {
@@ -557,7 +543,6 @@
         }
         .stop-btn.show { display: inline-flex; align-items: center; justify-content: center; }
 
-        /* Typing cursor */
         .cursor { display: inline-block; animation: blink 1s infinite; color: var(--secondary); font-weight: bold; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
@@ -580,7 +565,6 @@
         }
         .scroll-down-btn.show { display: flex; }
 
-        /* Footer */
         .footer {
             padding: 10px 24px;
             border-top: 1px solid var(--glass-border);
@@ -757,7 +741,6 @@
 
     <button class="scroll-down-btn" id="scrollDownBtn"><i class="fas fa-arrow-down"></i></button>
 
-    <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
@@ -806,7 +789,6 @@
         </div>
     </div>
 
-    <!-- Help Modal -->
     <div id="helpModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('helpModal')">✕</button>
@@ -826,7 +808,6 @@
         </div>
     </div>
 
-    <!-- Export Modal -->
     <div id="exportModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('exportModal')">✕</button>
@@ -845,7 +826,6 @@
        LUVUNO — Application Logic
        ============================================================ */
 
-    // ---------- STATE ----------
     const state = {
         user: { name: 'User', email: 'user@luvuno.ai', avatar: null, language: 'en' },
         chats: [],
@@ -859,7 +839,6 @@
 
     let currentController = null;
 
-    // ---------- PERSISTENCE ----------
     const LS_KEY = 'luvuno_state_v1';
 
     function saveState() {
@@ -883,7 +862,6 @@
         } catch (e) { return false; }
     }
 
-    // ---------- UTILS ----------
     const $ = (sel) => document.querySelector(sel);
     const uid = () => Math.random().toString(36).slice(2, 10);
     const now = () => new Date();
@@ -906,7 +884,6 @@
         return state.chats.find((c) => c.id === state.activeChatId) || null;
     }
 
-    // ---------- LOGIN & INITIALIZATION ----------
     const loginOverlay = $('#loginOverlay');
     const appContainer = $('#appContainer');
 
@@ -928,7 +905,6 @@
         }
     }
 
-    // ---------- PARTICLES ----------
     function initParticles() {
         particlesJS('particles-js', {
             particles: {
@@ -948,7 +924,6 @@
         });
     }
 
-    // ---------- CHAT HISTORY ----------
     function renderChatHistory() {
         const list = $('#chatHistoryList');
         list.innerHTML = '';
@@ -994,7 +969,6 @@
         return chat;
     }
 
-    // ---------- WAVE COLLAPSE THINKING ----------
     function showWaveThinking(containerEl) {
         containerEl.innerHTML = `
             <div class="thinking-pill">
@@ -1030,7 +1004,6 @@
         if (sub) sub.textContent = '⚛️ Response ready';
     }
 
-    // ---------- MESSAGES & RENDERING ----------
     function renderActiveChat() {
         const container = $('#messagesContainer');
         container.innerHTML = '';
@@ -1061,11 +1034,12 @@
         if (role === 'ai') {
             const actions = document.createElement('div');
             actions.className = 'message-actions';
+            // Native Unicode icons - no font dependency, instant render
             actions.innerHTML = `
-                <div class="message-action" data-action="copy" title="Copy response"><i class="fas fa-copy"></i></div>
-                <div class="message-action" data-action="download" title="Download as text"><i class="fas fa-download"></i></div>
-                <div class="message-action" data-action="regenerate" title="Regenerate response"><i class="fas fa-rotate-right"></i></div>
-                <div class="message-action" data-action="speak" title="Read aloud"><i class="fas fa-volume-up"></i></div>
+                <div class="message-action" data-action="copy" title="Copy response">⧉</div>
+                <div class="message-action" data-action="download" title="Download as text">⬇</div>
+                <div class="message-action" data-action="regenerate" title="Regenerate response">↻</div>
+                <div class="message-action" data-action="speak" title="Read aloud">🔊</div>
             `;
             actions.querySelector('[data-action="copy"]').onclick = () => {
                 navigator.clipboard.writeText(content);
@@ -1085,7 +1059,7 @@
             const copyIcon = document.createElement('div');
             copyIcon.className = 'user-copy-icon';
             copyIcon.title = 'Copy';
-            copyIcon.innerHTML = '<i class="fas fa-copy"></i>';
+            copyIcon.textContent = '⧉';
             copyIcon.onclick = (e) => {
                 e.stopPropagation();
                 navigator.clipboard.writeText(content);
@@ -1114,7 +1088,6 @@
         btn.classList.toggle('show', c.scrollHeight - c.scrollTop - c.clientHeight > 200);
     }
 
-    // ---------- ADD MESSAGE ----------
     function addMessage(role, content) {
         const chat = getActiveChat();
         if (!chat) return;
@@ -1126,7 +1099,6 @@
         saveState();
     }
 
-    // ---------- QUANTUM REASONING ----------
     const QUANTUM_NODES = [
         'Parsing intent and routing through quantum backends…',
         'Evaluating superposition of candidate responses…',
@@ -1154,7 +1126,6 @@
     }
     window.toggleReasoning = toggleReasoning;
 
-    // ---------- TEXT BACKEND (POLLINATIONS) ----------
     async function fetchAiReply(userMessage, context = '') {
         if (currentController) currentController.abort();
         currentController = new AbortController();
@@ -1199,7 +1170,6 @@
         }
     }
 
-    // ---------- STREAMING ----------
     async function streamReply(fullText, containerEl) {
         state.isStreaming = true;
         state.abortStream = false;
@@ -1238,7 +1208,6 @@
         });
     }
 
-    // ---------- SEND MESSAGE ----------
     async function sendMessage() {
         if (state.isStreaming) return;
         const input = $('#chatInput');
@@ -1261,13 +1230,11 @@
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
 
-        // Show the branded wave-thinking pill
         showWaveThinking(contentEl);
         scrollToBottom(true);
 
         const reply = await fetchAiReply(text, fileContext);
 
-        // Collapse wave, then stream
         collapseWave(contentEl);
         await new Promise(r => setTimeout(r, 500));
 
@@ -1278,7 +1245,6 @@
         scrollToBottom();
     }
 
-    // ---------- REGENERATE (text) ----------
     async function regenerateLast() {
         const chat = getActiveChat();
         if (!chat || state.isStreaming) return;
@@ -1304,7 +1270,6 @@
         streamReply(prefix + reply, container);
     }
 
-    // ---------- VOICE & SPEECH ----------
     function speak(text) {
         if (!('speechSynthesis' in window)) { toast('⚠️ Speech synthesis not supported'); return; }
         const plain = text.replace(/[#*`>_~-]/g, '').replace(/\n+/g, ' ').slice(0, 500);
@@ -1344,7 +1309,6 @@
         btn.classList.add('recording');
     }
 
-    // ---------- FILE ATTACHMENTS ----------
     async function handleFiles(files) {
         const status = $('#uploadStatus');
         for (const file of files) {
@@ -1379,7 +1343,6 @@
         return text;
     }
 
-    // ---------- EXPORT ----------
     function exportChat(format) {
         const chat = getActiveChat();
         if (!chat) return;
@@ -1411,7 +1374,6 @@
     }
     window.exportChat = exportChat;
 
-    // ---------- MODALS & TOAST ----------
     function openModal(id) { $('#' + id).classList.add('active'); }
     function closeModal(id) { $('#' + id).classList.remove('active'); }
     window.closeModal = closeModal;
@@ -1430,7 +1392,6 @@
         t._timer = setTimeout(() => { t.style.opacity = '0'; }, 1800);
     }
 
-    // ---------- SETTINGS ----------
     function loadSettingsUI() {
         $('#userNameInput').value = state.user.name;
         $('#userEmailInput').value = state.user.email;
@@ -1459,7 +1420,6 @@
         toast('✅ Settings saved');
     }
 
-    // ---------- SKILLS ----------
     const PRIMARY_SKILLS = [
         { emoji: '📝', label: 'Summarize', prompt: 'Summarize the following text:' },
         { emoji: '🌍', label: 'Translate', prompt: 'Translate to isiZulu:' },
@@ -1511,7 +1471,6 @@
         }
     }
 
-    // ---------- EVENT WIRING ----------
     function wireEvents() {
         $('#demoLoginBtn').onclick = enterApp;
         $('#menuToggle').onclick = () => $('#sidebar').classList.toggle('open');
@@ -1587,7 +1546,6 @@
         $('#scrollDownBtn').onclick = () => scrollToBottom(true);
     }
 
-    // ---------- INIT ----------
     window.addEventListener('DOMContentLoaded', () => {
         loadState();
         renderSkills();
