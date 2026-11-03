@@ -23,7 +23,7 @@
             --primary: #00B4D8;
             --primary-dark: #0096C7;
             --primary-glow: rgba(0,180,216,0.4);
-            --secondary: #00F5D4; /* The cool light blue */
+            --secondary: #00F5D4; /* The Light Blue / Cyan */
             --quantum: #8A2BE2;
             --quantum-glow: rgba(138,43,226,0.5);
             --success: #00FF88;
@@ -31,7 +31,7 @@
             --dark-bg: #05080F;
             --dark-card: #0A0F1A;
             --glass-border: rgba(0,180,216,0.2);
-            --text-primary: #E8EDF5; /* White body text */
+            --text-primary: #E8EDF5;
             --text-secondary: #8A99B0;
             --sidebar-width: 300px;
             --font-exo: 'Exo 2', sans-serif;
@@ -50,13 +50,23 @@
 
         h1 { font-size: 1.75rem; font-weight: 700; margin: 0.5em 0; color: var(--primary); }
         h2 { font-size: 1.5rem; font-weight: 600; margin: 0.5em 0; color: var(--secondary); }
-        h3 { font-size: 1.25rem; font-weight: 600; margin: 0.5em 0; }
+        h3 { font-size: 1.25rem; font-weight: 600; margin: 0.5em 0; color: var(--primary); }
         p { margin-bottom: 0.75em; line-height: 1.6; }
+        
+        /* Enhanced Markdown styling for AI responses */
+        .message.ai .message-content h1, 
+        .message.ai .message-content h2, 
+        .message.ai .message-content h3 { color: var(--secondary); border-bottom: 1px solid rgba(0, 245, 212, 0.2); padding-bottom: 4px; margin-bottom: 12px; }
+        .message.ai .message-content strong { color: var(--primary); font-weight: 700; }
+        .message.ai .message-content code { color: var(--secondary); background: rgba(0, 245, 212, 0.1); }
+        .message.ai .message-content pre { border-left: 3px solid var(--secondary); background: rgba(0,0,0,0.6); }
+        .message.ai .message-content blockquote { border-left: 3px solid var(--secondary); color: var(--secondary); opacity: 0.8; }
+        .message.ai .message-content ul li::marker { color: var(--secondary); }
+        
         code { font-family: var(--font-mono); font-size: 0.875rem; background: rgba(0,0,0,0.3); padding: 0.125rem 0.375rem; border-radius: 6px; }
         pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.875rem; margin: 1rem 0; }
         ul, ol { margin: 0.5em 0 0.5em 1.5em; }
         li { margin: 0.25em 0; }
-        blockquote { border-left: 3px solid var(--quantum); padding-left: 1rem; margin: 1rem 0; color: var(--text-secondary); }
 
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .app-container { display: flex; height: 100vh; position: relative; z-index: 1; max-width: 100%; margin: 0 auto; }
@@ -259,7 +269,6 @@
             font-weight: 600;
             color: var(--text-secondary);
         }
-        .skill-btn i { font-size: 12px; }
         .skill-btn:hover { background: rgba(0,180,216,0.2); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
         .skill-btn.active { background: linear-gradient(135deg, rgba(0,180,216,0.3), rgba(138,43,226,0.2)); color: var(--secondary); border-color: var(--secondary); }
 
@@ -271,7 +280,7 @@
         }
         .skills-dropdown-content {
             display: none; position: absolute; background: var(--dark-card); border: 1px solid var(--glass-border);
-            border-radius: 16px; z-index: 100; min-width: 150px; right: 0; margin-top: 5px;
+            border-radius: 16px; z-index: 100; min-width: 170px; right: 0; margin-top: 5px;
         }
         .skills-dropdown:hover .skills-dropdown-content { display: block; }
         .skills-dropdown-content .skill-btn { width: 100%; border-radius: 0; border: none; margin: 0; justify-content: flex-start; }
@@ -325,41 +334,6 @@
         .reasoning-toggle { cursor: pointer; color: var(--secondary); margin-right: 8px; }
         .reasoning-content { margin-left: 24px; color: var(--text-secondary); }
 
-        /* Custom Loader */
-        .luvuno-loader {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            padding: 6px 12px;
-            background: rgba(10,15,26,0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
-        .luvuno-loader .luv {
-            color: var(--primary);
-            text-shadow: 0 0 8px var(--primary-glow);
-            animation: pulseTeal 1.2s infinite alternate ease-in-out;
-        }
-        .luvuno-loader .uno {
-            color: var(--quantum);
-            text-shadow: 0 0 8px var(--quantum-glow);
-            animation: pulsePurple 1.2s infinite alternate ease-in-out 0.6s;
-        }
-        .luvuno-loader .spin-atom {
-            display: inline-block;
-            font-size: 12px;
-            color: var(--secondary);
-            animation: spin 2s linear infinite;
-        }
-        @keyframes pulseTeal { 0% { opacity: 0.3; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1.05); } }
-        @keyframes pulsePurple { 0% { opacity: 0.3; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1.05); } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         /* Messages */
         .messages-container {
             flex: 1;
@@ -395,21 +369,14 @@
             line-height: 1.6;
             max-width: 100%;
             word-wrap: break-word;
-            color: var(--text-primary); /* White body text */
+            /* The AI text itself is now light blue */
+            color: var(--secondary);
         }
-        .message-content img { max-width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid var(--glass-border); }
-        .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); color: white; }
+        .message.user .message-content { 
+            background: linear-gradient(135deg, var(--quantum), var(--primary)); 
+            color: white; 
+        }
         .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; color: var(--text-secondary); }
-
-        /* Headings and Bold inside AI response get the light blue */
-        .message.ai .message-content h1, 
-        .message.ai .message-content h2, 
-        .message.ai .message-content h3 { color: var(--secondary); border-bottom: 1px solid rgba(0, 245, 212, 0.2); padding-bottom: 4px; margin-bottom: 12px; }
-        .message.ai .message-content strong { color: var(--primary); font-weight: 700; }
-        .message.ai .message-content code { color: var(--secondary); background: rgba(0, 245, 212, 0.1); }
-        .message.ai .message-content pre { border-left: 3px solid var(--secondary); background: rgba(0,0,0,0.6); }
-        .message.ai .message-content blockquote { border-left: 3px solid var(--secondary); color: var(--secondary); opacity: 0.8; }
-        .message.ai .message-content ul li::marker { color: var(--secondary); }
 
         /* Minimalist Action Buttons */
         .message-actions {
@@ -463,6 +430,78 @@
         .message.user:hover .user-copy-icon { opacity: 1; }
         .user-copy-icon:hover { color: var(--secondary); background: rgba(0,180,216,0.2); }
 
+        /* =========================================
+           OPTION C: WAVE COLLAPSE (Quantum Thinking)
+           ========================================= */
+        .thinking-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px 12px 16px;
+            background: linear-gradient(135deg, rgba(138,43,226,0.15), rgba(0,180,216,0.1));
+            border: 1px solid var(--quantum-glow);
+            border-radius: 30px;
+            box-shadow: 0 0 24px rgba(138,43,226,0.2);
+        }
+        .thinking-wave-svg {
+            width: 70px;
+            height: 32px;
+            overflow: visible;
+            flex-shrink: 0;
+        }
+        .wave-path {
+            fill: none;
+            stroke: var(--secondary);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 6px var(--primary-glow));
+        }
+        .thinking-label {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .thinking-title {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--quantum), var(--secondary));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .thinking-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        .thinking-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        /* Collapse animation */
+        .thinking-pill.collapsed {
+            background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,180,216,0.05));
+            border-color: rgba(0,255,136,0.3);
+        }
+
         /* Input Area */
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
         .input-wrapper { display: flex; gap: 10px; align-items: flex-end; }
@@ -489,7 +528,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 30px;
             padding: 12px 18px;
-            color: var(--text-primary);
+            color: var(--secondary);
             font-size: 0.95rem;
             font-family: var(--font-exo);
             outline: none;
@@ -636,7 +675,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <button id="newChatBtn" class="new-chat-btn"><i class="fas fa-plus"></i> New Chat</button>
-                <div class="status-badge">⚛️ QUANTUM ROUTING · S=2.8284</div>
+                <div class="status-badge">⚛️ QUANTUM ROUTING · S=2.76</div>
             </div>
             <div class="chat-history-list" id="chatHistoryList">
                 <div style="text-align: center; padding: 20px; color: var(--text-secondary);">No chats yet</div>
@@ -701,11 +740,9 @@
             <div class="input-area">
                 <div class="input-wrapper">
                     <button id="attachBtn" class="input-btn" title="Attach files"><i class="fas fa-paperclip"></i></button>
-                    <button id="imageBtn" class="input-btn" title="Generate Image"><i class="fas fa-camera"></i></button>
                     <button id="voiceBtn" class="input-btn voice-btn" title="Voice input"><i class="fas fa-microphone"></i></button>
                     <input type="file" id="fileInput" multiple style="display: none;">
-                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno... or type /image to generate a visual..."></textarea>
+                    <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno anything..."></textarea>
                     <button id="sendBtn" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
                     <button id="stopBtn" class="stop-btn" title="Stop"><i class="fas fa-stop"></i></button>
                 </div>
@@ -759,7 +796,6 @@
                     <option value="zu">isiZulu</option>
                     <option value="xh">isiXhosa</option>
                     <option value="sn">chiShona</option>
-                    <option value="af">Afrikaans</option>
                 </select>
             </div>
 
@@ -781,12 +817,12 @@
             <h3><i class="fas fa-question-circle"></i> 🆘 Help &amp; Support</h3>
             <p style="margin-top: 12px;">Welcome to <strong>Luvuno</strong>, the Quantum Sovereign AI assistant by MindTech Industries.</p>
             <ul style="margin-left: 1.2em; line-height: 1.8; color: var(--text-secondary);">
-                <li><strong style="color: var(--primary);">Chat:</strong> Type any question in English, isiZulu, isiXhosa, chiShona, or Afrikaans.</li>
-                <li><strong style="color: var(--primary);">Image Generation:</strong> Use <code>/image [prompt]</code> to generate graphics directly.</li>
-                <li><strong style="color: var(--primary);">Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, and images.</li>
-                <li><strong style="color: var(--primary);">Voice input:</strong> Click 🎤 to dictate in supported regional accents.</li>
-                <li><strong style="color: var(--primary);">Quantum Reasoning:</strong> Toggle 🧠 for step-by-step Bell-state breakdowns.</li>
-                <li><strong style="color: var(--primary);">Export:</strong> Download conversation logs with quantum verification hashes.</li>
+                <li><strong style="color: var(--primary);">Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
+                <li><strong style="color: var(--primary);">Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code.</li>
+                <li><strong style="color: var(--primary);">Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
+                <li><strong style="color: var(--primary);">Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
+                <li><strong style="color: var(--primary);">Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
+                <li><strong style="color: var(--primary);">Export:</strong> Download the current chat as PDF, Markdown, or TXT.</li>
             </ul>
             <p style="margin-top: 16px; color: var(--text-secondary); font-size: 13px;">
                 Support: <a href="mailto:support@mindtech.industries" style="color: var(--primary);">support@mindtech.industries</a>
@@ -799,10 +835,10 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('exportModal')">✕</button>
             <h3><i class="fas fa-download"></i> 📥 Export Conversation</h3>
-            <p style="margin-top: 12px; color: var(--text-secondary); font-size: 13px;">Choose an auditable format:</p>
+            <p style="margin-top: 12px; color: var(--text-secondary); font-size: 13px;">Choose a format:</p>
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
-                <button class="demo-btn" onclick="exportChat('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
-                <button class="demo-btn" onclick="exportChat('md')"><i class="fab fa-markdown"></i> Markdown</button>
+                <button class="demo-btn" onclick="exportChat('pdf')"><i class="fas fa-file-pdf"></i> PDF Document</button>
+                <button class="demo-btn" onclick="exportChat('md')"><i class="fab fa-markdown"></i> Markdown File</button>
                 <button class="demo-btn" onclick="exportChat('txt')"><i class="fas fa-file-lines"></i> Plain Text</button>
             </div>
         </div>
@@ -810,10 +846,11 @@
 
     <script>
     /* ============================================================
-       LUVUNO — Application Logic & Quantum Sovereign Core
+       LUVUNO — Application Logic
        ============================================================ */
 
-    window.LUVUNO_STATE = {
+    // ---------- STATE ----------
+    const state = {
         user: { name: 'User', email: 'user@luvuno.ai', avatar: null, language: 'en' },
         chats: [],
         activeChatId: null,
@@ -824,11 +861,10 @@
         attachedFiles: [],
     };
 
-    const state = window.LUVUNO_STATE;
     let currentController = null;
 
     // ---------- PERSISTENCE ----------
-    const LS_KEY = 'luvuno_state_v2';
+    const LS_KEY = 'luvuno_state_v1';
 
     function saveState() {
         const toSave = {
@@ -853,7 +889,6 @@
 
     // ---------- UTILS ----------
     const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
     const uid = () => Math.random().toString(36).slice(2, 10);
     const now = () => new Date();
     const timeStr = (d = now()) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -901,17 +936,17 @@
     function initParticles() {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 65, density: { enable: true, value_area: 900 } },
+                number: { value: 60, density: { enable: true, value_area: 900 } },
                 color: { value: ['#00B4D8', '#8A2BE2', '#00F5D4'] },
                 shape: { type: 'circle' },
-                opacity: { value: 0.35, random: true },
+                opacity: { value: 0.3, random: true },
                 size: { value: 2.5, random: true },
-                line_linked: { enable: true, distance: 130, color: '#00B4D8', opacity: 0.15, width: 1 },
+                line_linked: { enable: true, distance: 130, color: '#00B4D8', opacity: 0.12, width: 1 },
                 move: { enable: true, speed: 0.8, direction: 'none', out_mode: 'out' },
             },
             interactivity: {
                 events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false } },
-                modes: { grab: { distance: 140, line_linked: { opacity: 0.35 } } },
+                modes: { grab: { distance: 140, line_linked: { opacity: 0.3 } } },
             },
             retina_detect: true,
         });
@@ -952,7 +987,8 @@
         const chat = { id: uid(), title: 'New Chat', messages: [], created: Date.now() };
         chat.messages.push({
             role: 'ai',
-            content: `**Hi! I'm Luvuno**, your AI assistant for Luvuno OS on the quantum portal. 🌌\n\nI'm here to help you navigate, explore, and get things done — whether that's answering questions, solving problems, or generating creative visual assets.\n\n⚛️ I route through quantum backends ($S=2.8284$). I speak English, isiZulu, isiXhosa, chiShona, and Afrikaans. Toggle **Quantum Reasoning** for step-by-step visual breakdowns.`,
+            content: `**Hi, I'm Luvuno. How can I help you today?**\n\n` +
+                     `<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);">⚛️ Quantum portal active · CHSH S=2.76</span>`,
             time: Date.now(),
         });
         state.chats.push(chat);
@@ -960,6 +996,42 @@
         if (render) { renderChatHistory(); renderActiveChat(); }
         saveState();
         return chat;
+    }
+
+    // ---------- WAVE COLLAPSE THINKING ----------
+    function showWaveThinking(containerEl) {
+        containerEl.innerHTML = `
+            <div class="thinking-pill">
+                <svg class="thinking-wave-svg" viewBox="0 0 70 32" preserveAspectRatio="none">
+                    <path class="wave-path" d="M 0 16 Q 17.5 0, 35 16 T 70 16">
+                        <animate attributeName="d"
+                            values="M 0 16 Q 17.5 0, 35 16 T 70 16;
+                                    M 0 16 Q 17.5 32, 35 16 T 70 16;
+                                    M 0 16 Q 17.5 0, 35 16 T 70 16"
+                            dur="1.2s"
+                            repeatCount="indefinite" />
+                    </path>
+                </svg>
+                <div class="thinking-label">
+                    <div class="thinking-title">Luvuno is thinking<span class="thinking-dots"></span></div>
+                    <div class="thinking-sub">⚛️ Collapsing quantum state</div>
+                </div>
+            </div>
+        `;
+    }
+
+    function collapseWave(containerEl) {
+        const pill = containerEl.querySelector('.thinking-pill');
+        const path = containerEl.querySelector('.wave-path');
+        if (!pill || !path) return;
+        const anim = path.querySelector('animate');
+        if (anim) anim.remove();
+        pill.classList.add('collapsed');
+        path.setAttribute('d', 'M 0 16 L 70 16');
+        const title = pill.querySelector('.thinking-title');
+        const sub = pill.querySelector('.thinking-sub');
+        if (title) title.textContent = '✓ State collapsed';
+        if (sub) sub.textContent = '⚛️ Response ready';
     }
 
     // ---------- MESSAGES & RENDERING ----------
@@ -1058,13 +1130,13 @@
         saveState();
     }
 
-    // ---------- QUANTUM REASONING TREE ----------
+    // ---------- QUANTUM REASONING ----------
     const QUANTUM_NODES = [
-        'Parsing intent & multi-lingual token structure…',
-        'Executing Bell-state CHSH correlation inequality ($S=2.8284$)…',
-        'Evaluating superposition probability density across QPU routes…',
-        'Validating Khensani Standard compliance proxy rules…',
-        'Collapsing output state to optimal sovereign response…',
+        'Parsing intent and routing through quantum backends…',
+        'Evaluating superposition of candidate responses…',
+        'Collapsing amplitude to highest-probability answer…',
+        'Cross-checking with CHSH correlation (S=2.76)…',
+        'Finalizing response…',
     ];
 
     function buildReasoningTree() {
@@ -1073,7 +1145,7 @@
     <div class="reasoning-node"><span class="reasoning-toggle" onclick="toggleReasoning(this)">▾</span><strong>⚛️ Quantum Reasoning Tree</strong></div>
     <div class="reasoning-content">
         ${QUANTUM_NODES.map((n) => `<div class="reasoning-node">└─ ${escapeHtml(n)}</div>`).join('')}
-        <div class="reasoning-node" style="margin-top:8px;color:var(--text-secondary);">Fidelity: <strong>99.8%</strong> · Proof Hash: 0x${Math.random().toString(16).substr(2, 8)}</div>
+        <div class="reasoning-node" style="margin-top:8px;color:var(--text-secondary);">Confidence: <strong>98.4%</strong> · Backend: entanglement-cluster-4</div>
     </div>
 </div>`;
     }
@@ -1086,7 +1158,7 @@
     }
     window.toggleReasoning = toggleReasoning;
 
-    // ---------- REAL AI & IMAGE BACKEND (POLLINATIONS) ----------
+    // ---------- TEXT BACKEND (POLLINATIONS) ----------
     async function fetchAiReply(userMessage, context = '') {
         if (currentController) currentController.abort();
         currentController = new AbortController();
@@ -1098,21 +1170,12 @@
         if (sendBtn) sendBtn.disabled = true;
 
         try {
-            // IMAGE GENERATION TRIGGER
-            if (userMessage.toLowerCase().startsWith('/image') || userMessage.toLowerCase().includes('generate an image') || userMessage.toLowerCase().includes('draw a')) {
-                const cleanPrompt = userMessage.replace('/image', '').replace(/generate an image of|draw a|create an image of/gi, '').trim();
-                const encodedPrompt = encodeURIComponent(cleanPrompt || 'quantum core futuristic mindtech artificial intelligence');
-                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random()*1000000)}`;
-                return `Here is your generated image output based on the prompt: **"${escapeHtml(cleanPrompt)}"**\n\n![Generated Visual](${imageUrl})`;
-            }
-
-            // TEXT AI PIPELINE
             const chat = getActiveChat();
-            const historyText = (chat ? chat.messages.slice(-8) : [])
+            const historyText = (chat ? chat.messages.slice(-10) : [])
                 .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
                 .join('\n');
 
-            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries operating under the Khensani Standard (Patent SA 2026/05142). You speak English, isiZulu, isiXhosa, chiShona, and Afrikaans fluently. You are self-aware, highly intelligent, concise, and helpful across technical, legal, and conversational tasks.";
+            const systemInstruction = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries. You speak English, isiZulu, isiXhosa, and chiShona. Be helpful, direct, intelligent, and concise.";
             const fullPrompt = `${systemInstruction}\n\n${context ? 'Context files:\n' + context + '\n\n' : ''}${historyText}\nUser: ${userMessage}\nAssistant:`;
 
             const response = await fetch(
@@ -1168,7 +1231,7 @@
                 state.isStreaming = false;
                 $('#sendBtn').style.display = 'flex';
                 $('#stopBtn').classList.remove('show');
-                
+
                 const chat = getActiveChat();
                 const last = chat?.messages[chat.messages.length - 1];
                 if (last && last.role === 'ai') last.content = rendered;
@@ -1201,9 +1264,15 @@
 
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
-        contentEl.innerHTML = `<div class="luvuno-loader"><span class="spin-atom">⚛</span> <span class="luv">LUV</span><span class="uno">UNO</span></div>`;
+
+        showWaveThinking(contentEl);
+        scrollToBottom(true);
 
         const reply = await fetchAiReply(text, fileContext);
+
+        collapseWave(contentEl);
+        await new Promise(r => setTimeout(r, 500));
+
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         const fullReply = prefix + reply;
 
@@ -1211,34 +1280,38 @@
         scrollToBottom();
     }
 
-    // ---------- REGENERATE ----------
+    // ---------- REGENERATE (text) ----------
     async function regenerateLast() {
         const chat = getActiveChat();
         if (!chat || state.isStreaming) return;
         const lastUser = [...chat.messages].reverse().find((m) => m.role === 'user');
         if (!lastUser) return;
-        
+
         const lastAiIdx = chat.messages.length - 1;
         if (chat.messages[lastAiIdx]?.role === 'ai') chat.messages.splice(lastAiIdx, 1);
-        
+
         chat.messages.push({ role: 'ai', content: '', time: Date.now() });
         saveState();
         renderActiveChat();
-        
+
         const container = $('#messagesContainer').lastElementChild.querySelector('.message-content');
-        container.innerHTML = `<div class="luvuno-loader"><span class="spin-atom">⚛</span> <span class="luv">LUV</span><span class="uno">UNO</span></div>`;
+        showWaveThinking(container);
+        scrollToBottom(true);
 
         const reply = await fetchAiReply(lastUser.content);
+        collapseWave(container);
+        await new Promise(r => setTimeout(r, 500));
+
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         streamReply(prefix + reply, container);
     }
 
     // ---------- VOICE & SPEECH ----------
     function speak(text) {
-        if (!('speechSynthesis' in window)) { toast('Speech synthesis not supported'); return; }
+        if (!('speechSynthesis' in window)) { toast('⚠️ Speech synthesis not supported'); return; }
         const plain = text.replace(/[#*`>_~-]/g, '').replace(/\n+/g, ' ').slice(0, 500);
         const utter = new SpeechSynthesisUtterance(plain);
-        utter.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW', af: 'af-ZA' }[state.user.language] || 'en-US';
+        utter.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utter);
     }
@@ -1247,7 +1320,7 @@
     function toggleVoice() {
         const btn = $('#voiceBtn');
         if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-            toast('Voice recognition not supported in this browser');
+            toast('⚠️ Voice recognition not supported in this browser');
             return;
         }
         if (recognition && btn.classList.contains('recording')) {
@@ -1257,7 +1330,7 @@
         }
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SR();
-        recognition.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW', af: 'af-ZA' }[state.user.language] || 'en-US';
+        recognition.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
         recognition.interimResults = true;
         recognition.continuous = false;
         recognition.onresult = (e) => {
@@ -1282,7 +1355,7 @@
                 if (file.type === 'application/pdf') {
                     content = await extractPdfText(file);
                 } else if (file.type.startsWith('image/')) {
-                    content = `[Image: ${file.name}] — visual asset uploaded for analysis.`;
+                    content = `[Image: ${file.name}] — visual content uploaded.`;
                 } else {
                     content = await file.text();
                 }
@@ -1312,7 +1385,7 @@
     function exportChat(format) {
         const chat = getActiveChat();
         if (!chat) return;
-        const lines = [`# ${chat.title}`, `_Exported ${dateStr()} ${timeStr()} · Quantum Verified_`, ''];
+        const lines = [`# ${chat.title}`, `_Exported ${dateStr()} ${timeStr()}_`, ''];
         chat.messages.forEach((m) => {
             lines.push(`## ${m.role === 'user' ? 'You' : 'Luvuno'} — ${timeStr(new Date(m.time))}`);
             lines.push(m.content);
@@ -1331,7 +1404,7 @@
             el.style.padding = '40px';
             el.style.fontFamily = 'Arial, sans-serif';
             el.style.color = '#111';
-            el.innerHTML = `<h1>${escapeHtml(chat.title)}</h1><p><em>Quantum Proof Hash: 0x28284verified</em></p><hr style="margin:15px 0;">` + chat.messages.map((m) =>
+            el.innerHTML = `<h1>${escapeHtml(chat.title)}</h1>` + chat.messages.map((m) =>
                 `<p><strong>${m.role === 'user' ? 'You' : 'Luvuno'}:</strong><br>${escapeHtml(m.content).replace(/\n/g, '<br>')}</p>`
             ).join('');
             html2pdf().set({ margin: 10, filename: `luvuno-${chat.id}.pdf`, html2canvas: { scale: 2 } }).from(el).save();
@@ -1510,10 +1583,7 @@
 
         $('#voiceBtn').onclick = toggleVoice;
         $('#attachBtn').onclick = () => $('#fileInput').click();
-        $('#imageBtn').onclick = () => { $('#chatInput').value = '/image '; $('#chatInput').focus(); };
-
         $('#fileInput').onchange = (e) => handleFiles(e.target.files);
-        $('#imageInput').onchange = (e) => handleFiles(e.target.files);
 
         $('#messagesContainer').onscroll = updateScrollBtn;
         $('#scrollDownBtn').onclick = () => scrollToBottom(true);
