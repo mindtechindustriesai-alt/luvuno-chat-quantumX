@@ -50,13 +50,17 @@
 
         h1 { font-size: 1.75rem; font-weight: 700; margin: 0.5em 0; color: var(--primary); }
         h2 { font-size: 1.5rem; font-weight: 600; margin: 0.5em 0; color: var(--secondary); }
-        h3 { font-size: 1.25rem; font-weight: 600; margin: 0.5em 0; }
+        h3 { font-size: 1.25rem; font-weight: 600; margin: 0.5em 0; color: var(--primary); }
         p { margin-bottom: 0.75em; line-height: 1.6; }
-        code { font-family: var(--font-mono); font-size: 0.875rem; background: rgba(0,0,0,0.3); padding: 0.125rem 0.375rem; border-radius: 6px; }
-        pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.875rem; margin: 1rem 0; }
+        code { font-family: var(--font-mono); font-size: 0.875rem; background: rgba(0,0,0,0.3); padding: 0.125rem 0.375rem; border-radius: 6px; color: var(--secondary); }
+        pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.875rem; margin: 1rem 0; border-left: 3px solid var(--primary); }
         ul, ol { margin: 0.5em 0 0.5em 1.5em; }
         li { margin: 0.25em 0; }
         blockquote { border-left: 3px solid var(--quantum); padding-left: 1rem; margin: 1rem 0; color: var(--text-secondary); }
+        
+        /* Light blue topic accents */
+        .topic-accent { color: var(--secondary); font-weight: 600; font-family: var(--font-mono); font-size: 0.9em; }
+        .blue-glow { text-shadow: 0 0 8px var(--primary-glow); }
 
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .app-container { display: flex; height: 100vh; position: relative; z-index: 1; max-width: 100%; margin: 0 auto; }
@@ -154,7 +158,7 @@
         }
         .history-item:hover { background: rgba(0,180,216,0.1); border-color: var(--glass-border); }
         .history-item.active { background: linear-gradient(135deg, rgba(0,180,216,0.15), rgba(138,43,226,0.1)); border-left: 3px solid var(--primary); }
-        .history-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .history-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--secondary); }
         .history-time { font-size: 10px; color: var(--text-secondary); margin-top: 4px; font-family: var(--font-mono); }
 
         /* Profile */
@@ -187,7 +191,7 @@
         }
         .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .profile-info { flex: 1; }
-        .profile-name { font-size: 14px; font-weight: 600; }
+        .profile-name { font-size: 14px; font-weight: 600; color: var(--primary); }
         .profile-email { font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); }
         .sidebar-menu-item {
             display: flex;
@@ -260,7 +264,7 @@
             color: var(--text-secondary);
         }
         .skill-btn:hover { background: rgba(0,180,216,0.2); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-        .skill-btn.active { background: linear-gradient(135deg, rgba(0,180,216,0.3), rgba(138,43,226,0.2)); color: var(--secondary); }
+        .skill-btn.active { background: linear-gradient(135deg, rgba(0,180,216,0.3), rgba(138,43,226,0.2)); color: var(--secondary); border-color: var(--secondary); }
 
         .skills-dropdown { position: relative; display: inline-block; }
         .skills-dropdown-btn {
@@ -292,8 +296,8 @@
             padding: 5px 15px;
             border-radius: 40px;
         }
-        .speed-control label { font-size: 11px; font-family: var(--font-mono); }
-        .speed-control input { width: 100px; cursor: pointer; }
+        .speed-control label { font-size: 11px; font-family: var(--font-mono); color: var(--secondary); }
+        .speed-control input { width: 100px; cursor: pointer; accent-color: var(--primary); }
         .speed-control span { font-size: 11px; font-family: var(--font-mono); color: var(--secondary); min-width: 40px; }
 
         .quantum-think-box {
@@ -322,7 +326,7 @@
         }
         .reasoning-node { margin: 6px 0; }
         .reasoning-toggle { cursor: pointer; color: var(--secondary); margin-right: 8px; }
-        .reasoning-content { margin-left: 24px; }
+        .reasoning-content { margin-left: 24px; color: var(--text-secondary); }
 
         /* Messages */
         .messages-container {
@@ -360,8 +364,8 @@
             max-width: 100%;
             word-wrap: break-word;
         }
-        .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); }
-        .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; }
+        .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); color: white; }
+        .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; color: var(--text-secondary); }
 
         /* Hover-only copy on user messages */
         .user-copy-icon {
@@ -388,7 +392,7 @@
         /* Action Buttons */
         .message-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             margin-top: 12px;
             padding-top: 8px;
             border-top: 1px solid var(--glass-border);
@@ -399,16 +403,16 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            opacity: 0.7;
+            opacity: 0.8;
             transition: all 0.2s;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             background: rgba(255,255,255,0.03);
             border: 1px solid transparent;
         }
-        .message-action:hover { opacity: 1; color: var(--primary); background: rgba(0,180,216,0.1); border-color: var(--primary-glow); }
+        .message-action:hover { opacity: 1; color: var(--secondary); background: rgba(0,180,216,0.1); border-color: var(--primary-glow); }
 
         /* =========================================
            OPTION C: WAVE COLLAPSE (Quantum Thinking)
@@ -461,9 +465,9 @@
         .thinking-sub {
             font-family: var(--font-mono);
             font-size: 9px;
-            color: var(--text-secondary);
+            color: var(--secondary);
             letter-spacing: 1px;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         .thinking-dots::after {
             content: '';
@@ -515,7 +519,8 @@
             resize: none;
             max-height: 150px;
         }
-        .chat-input:focus { border-color: var(--primary); }
+        .chat-input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        .chat-input::placeholder { color: var(--text-secondary); }
         .send-btn {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
@@ -541,7 +546,7 @@
         .stop-btn.show { display: inline-flex; align-items: center; justify-content: center; }
 
         /* Typing cursor */
-        .cursor { display: inline-block; animation: blink 1s infinite; color: var(--primary); font-weight: bold; }
+        .cursor { display: inline-block; animation: blink 1s infinite; color: var(--secondary); font-weight: bold; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
         .scroll-down-btn {
@@ -606,6 +611,7 @@
             font-size: 20px;
             cursor: pointer;
         }
+        .modal-close:hover { color: var(--danger); }
         .avatar-upload {
             display: flex;
             align-items: center;
@@ -656,7 +662,7 @@
                 <div class="status-badge">⚛️ QUANTUM ROUTING · S=2.76</div>
             </div>
             <div class="chat-history-list" id="chatHistoryList">
-                <div style="text-align: center; padding: 20px;">No chats yet</div>
+                <div style="text-align: center; padding: 20px; color: var(--text-secondary);">No chats yet</div>
             </div>
 
             <div class="sidebar-bottom">
@@ -668,7 +674,7 @@
                         <div class="profile-name" id="userName">User</div>
                         <div class="profile-email" id="userEmail">user@luvuno.ai</div>
                     </div>
-                    <i class="fas fa-chevron-right" style="opacity: 0.6; font-size: 12px;"></i>
+                    <i class="fas fa-chevron-right" style="opacity: 0.6; font-size: 12px; color: var(--secondary);"></i>
                 </div>
                 <div id="settingsBtn" class="sidebar-menu-item"><i class="fas fa-sliders-h"></i> Settings</div>
                 <div id="helpBtn" class="sidebar-menu-item"><i class="fas fa-question-circle"></i> Help & Support</div>
@@ -724,7 +730,7 @@
                     <button id="sendBtn" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
                     <button id="stopBtn" class="stop-btn" title="Stop"><i class="fas fa-stop"></i></button>
                 </div>
-                <div id="uploadStatus" style="font-size: 11px; margin-top: 8px; color: var(--text-secondary);"></div>
+                <div id="uploadStatus" style="font-size: 11px; margin-top: 8px; color: var(--secondary);"></div>
             </div>
 
             <div class="footer">
@@ -743,7 +749,7 @@
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
-            <h3><i class="fas fa-sliders-h"></i> Settings</h3>
+            <h3><i class="fas fa-sliders-h"></i> ⚙️ Settings</h3>
 
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-size: 13px; color: var(--secondary);">Profile Avatar</label>
@@ -751,24 +757,24 @@
                     <div class="avatar-preview" id="avatarPreview">
                         <i class="fas fa-user-astronaut"></i>
                     </div>
-                    <button id="uploadAvatarBtn" class="input-btn" style="width: auto; padding: 0 15px; border-radius: 30px;"><i class="fas fa-upload"></i> Upload Image</button>
+                    <button id="uploadAvatarBtn" class="input-btn" style="width: auto; padding: 0 15px; border-radius: 30px;"><i class="fas fa-upload"></i> Upload</button>
                     <button id="removeAvatarBtn" class="input-btn" style="width: auto; padding: 0 15px; border-radius: 30px; background: rgba(239,71,111,0.2);"><i class="fas fa-trash"></i> Remove</button>
                     <input type="file" id="avatarInput" accept="image/*" style="display: none;">
                 </div>
             </div>
 
             <div style="margin-bottom: 16px;">
-                <label style="display: block; margin-bottom: 6px;">Your Name</label>
+                <label style="display: block; margin-bottom: 6px; color: var(--secondary);">Your Name</label>
                 <input type="text" id="userNameInput" placeholder="Enter your name" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; color: white;">
             </div>
 
             <div style="margin-bottom: 16px;">
-                <label style="display: block; margin-bottom: 6px;">Email Address</label>
+                <label style="display: block; margin-bottom: 6px; color: var(--secondary);">Email Address</label>
                 <input type="email" id="userEmailInput" placeholder="Enter your email" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; color: white;">
             </div>
 
             <div style="margin-bottom: 16px;">
-                <label style="display: block; margin-bottom: 6px;">Default Language</label>
+                <label style="display: block; margin-bottom: 6px; color: var(--secondary);">Default Language</label>
                 <select id="languageSelect" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; color: white;">
                     <option value="en">English</option>
                     <option value="zu">isiZulu</option>
@@ -778,8 +784,8 @@
             </div>
 
             <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
-                <label style="font-size: 13px;">Enable Quantum Reasoning by default</label>
-                <input type="checkbox" id="defaultQuantumToggle" style="width: 20px; height: 20px; cursor: pointer;">
+                <label style="font-size: 13px; color: var(--secondary);">Enable Quantum Reasoning by default</label>
+                <input type="checkbox" id="defaultQuantumToggle" style="width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary);">
             </div>
 
             <button id="saveSettingsBtn" class="demo-btn" style="margin-top: 8px;">
@@ -792,15 +798,15 @@
     <div id="helpModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('helpModal')">✕</button>
-            <h3><i class="fas fa-question-circle"></i> Help &amp; Support</h3>
+            <h3><i class="fas fa-question-circle"></i> 🆘 Help &amp; Support</h3>
             <p style="margin-top: 12px;">Welcome to <strong>Luvuno</strong>, the Quantum Sovereign AI assistant by MindTech Industries.</p>
-            <ul style="margin-left: 1.2em; line-height: 1.8;">
-                <li><strong>Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
-                <li><strong>Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code.</li>
-                <li><strong>Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
-                <li><strong>Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
-                <li><strong>Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
-                <li><strong>Export:</strong> Download the current chat as PDF, Markdown, or TXT.</li>
+            <ul style="margin-left: 1.2em; line-height: 1.8; color: var(--text-secondary);">
+                <li><strong style="color: var(--primary);">Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
+                <li><strong style="color: var(--primary);">Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code.</li>
+                <li><strong style="color: var(--primary);">Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
+                <li><strong style="color: var(--primary);">Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
+                <li><strong style="color: var(--primary);">Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
+                <li><strong style="color: var(--primary);">Export:</strong> Download the current chat as PDF, Markdown, or TXT.</li>
             </ul>
             <p style="margin-top: 16px; color: var(--text-secondary); font-size: 13px;">
                 Support: <a href="mailto:support@mindtech.industries" style="color: var(--primary);">support@mindtech.industries</a>
@@ -812,11 +818,11 @@
     <div id="exportModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('exportModal')">✕</button>
-            <h3><i class="fas fa-download"></i> Export Conversation</h3>
+            <h3><i class="fas fa-download"></i> 📥 Export Conversation</h3>
             <p style="margin-top: 12px; color: var(--text-secondary); font-size: 13px;">Choose a format:</p>
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
-                <button class="demo-btn" onclick="exportChat('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
-                <button class="demo-btn" onclick="exportChat('md')"><i class="fab fa-markdown"></i> Markdown</button>
+                <button class="demo-btn" onclick="exportChat('pdf')"><i class="fas fa-file-pdf"></i> PDF Document</button>
+                <button class="demo-btn" onclick="exportChat('md')"><i class="fab fa-markdown"></i> Markdown File</button>
                 <button class="demo-btn" onclick="exportChat('txt')"><i class="fas fa-file-lines"></i> Plain Text</button>
             </div>
         </div>
@@ -942,7 +948,7 @@
             const div = document.createElement('div');
             div.className = 'history-item' + (chat.id === state.activeChatId ? ' active' : '');
             div.innerHTML = `
-                <div class="history-title">${escapeHtml(chat.title || 'New Chat')}</div>
+                <div class="history-title">💬 ${escapeHtml(chat.title || 'New Chat')}</div>
                 <div class="history-time">${new Date(chat.created).toLocaleDateString()} · ${chat.messages.length} msg</div>
             `;
             div.onclick = () => { state.activeChatId = chat.id; renderChatHistory(); renderActiveChat(); saveState(); };
@@ -1005,7 +1011,6 @@
         const anim = path.querySelector('animate');
         if (anim) anim.remove();
         pill.classList.add('collapsed');
-        // Smooth flattening via SMIL-free interpolation
         path.setAttribute('d', 'M 0 16 L 70 16');
         const title = pill.querySelector('.thinking-title');
         const sub = pill.querySelector('.thinking-sub');
