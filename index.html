@@ -388,58 +388,82 @@
         /* Action Buttons */
         .message-actions {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             margin-top: 12px;
             padding-top: 8px;
             border-top: 1px solid var(--glass-border);
+            flex-wrap: wrap;
         }
         .message-action {
             display: flex;
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            opacity: 0.6;
+            opacity: 0.7;
             transition: all 0.2s;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
         }
-        .message-action:hover { opacity: 1; color: var(--primary); }
+        .message-action:hover { opacity: 1; color: var(--primary); background: rgba(0,180,216,0.1); border-color: var(--primary-glow); }
 
         /* =========================================
            OPTION C: WAVE COLLAPSE (Quantum Thinking)
            ========================================= */
-        .thinking-wave-container {
-            display: flex;
+        .thinking-pill {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 4px 0;
+            gap: 14px;
+            padding: 12px 20px 12px 16px;
+            background: linear-gradient(135deg, rgba(138,43,226,0.15), rgba(0,180,216,0.1));
+            border: 1px solid var(--quantum-glow);
+            border-radius: 30px;
+            box-shadow: 0 0 24px rgba(138,43,226,0.2);
         }
-        .wave-svg {
-            width: 60px;
-            height: 30px;
+        .thinking-wave-svg {
+            width: 70px;
+            height: 32px;
             overflow: visible;
+            flex-shrink: 0;
         }
         .wave-path {
             fill: none;
             stroke: var(--secondary);
             stroke-width: 2.5;
             stroke-linecap: round;
-            filter: drop-shadow(0 0 4px var(--primary-glow));
+            filter: drop-shadow(0 0 6px var(--primary-glow));
         }
-        /* Collapse animation: the wave flattens into a straight line */
-        .wave-svg.collapsed .wave-path {
-            animation: wave-collapse 0.6s ease-out forwards;
+        .thinking-label {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
-        @keyframes wave-collapse {
-            0%   { d: path("M 0 15 Q 15 0, 30 15 T 60 15"); opacity: 1; }
-            50%  { d: path("M 0 15 Q 15 25, 30 15 T 60 15"); opacity: 0.6; }
-            100% { d: path("M 0 15 L 60 15"); opacity: 0.3; }
-        }
-        .thinking-text {
+        .thinking-title {
             font-family: var(--font-mono);
             font-size: 12px;
-            color: var(--secondary);
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--quantum), var(--secondary));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .thinking-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            opacity: 0.7;
         }
         .thinking-dots::after {
             content: '';
@@ -450,6 +474,12 @@
             40% { content: '.'; }
             60% { content: '..'; }
             80%, 100% { content: '...'; }
+        }
+
+        /* Collapse animation */
+        .thinking-pill.collapsed {
+            background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,180,216,0.05));
+            border-color: rgba(0,255,136,0.3);
         }
 
         /* Input Area */
@@ -949,36 +979,38 @@
     // ---------- WAVE COLLAPSE THINKING ----------
     function showWaveThinking(containerEl) {
         containerEl.innerHTML = `
-            <div class="thinking-wave-container" id="waveContainer">
-                <svg class="wave-svg" viewBox="0 0 60 30" preserveAspectRatio="none">
-                    <path class="wave-path" d="M 0 15 Q 15 0, 30 15 T 60 15">
+            <div class="thinking-pill">
+                <svg class="thinking-wave-svg" viewBox="0 0 70 32" preserveAspectRatio="none">
+                    <path class="wave-path" d="M 0 16 Q 17.5 0, 35 16 T 70 16">
                         <animate attributeName="d"
-                            values="M 0 15 Q 15 0, 30 15 T 60 15;
-                                    M 0 15 Q 15 30, 30 15 T 60 15;
-                                    M 0 15 Q 15 0, 30 15 T 60 15"
+                            values="M 0 16 Q 17.5 0, 35 16 T 70 16;
+                                    M 0 16 Q 17.5 32, 35 16 T 70 16;
+                                    M 0 16 Q 17.5 0, 35 16 T 70 16"
                             dur="1.2s"
                             repeatCount="indefinite" />
                     </path>
                 </svg>
-                <span class="thinking-text">Collapsing quantum state<span class="thinking-dots"></span></span>
+                <div class="thinking-label">
+                    <div class="thinking-title">Luvuno is thinking<span class="thinking-dots"></span></div>
+                    <div class="thinking-sub">⚛️ Collapsing quantum state</div>
+                </div>
             </div>
         `;
     }
 
     function collapseWave(containerEl) {
-        const svg = containerEl.querySelector('.wave-svg');
+        const pill = containerEl.querySelector('.thinking-pill');
         const path = containerEl.querySelector('.wave-path');
-        if (!svg || !path) return;
-        // Stop the SMIL animation
+        if (!pill || !path) return;
         const anim = path.querySelector('animate');
         if (anim) anim.remove();
-        // Add collapse class and set final flat state
-        svg.classList.add('collapsed');
-        path.setAttribute('d', 'M 0 15 Q 15 20, 30 15 T 60 15');
-        setTimeout(() => {
-            path.setAttribute('d', 'M 0 15 L 60 15');
-            path.style.opacity = '0.3';
-        }, 300);
+        pill.classList.add('collapsed');
+        // Smooth flattening via SMIL-free interpolation
+        path.setAttribute('d', 'M 0 16 L 70 16');
+        const title = pill.querySelector('.thinking-title');
+        const sub = pill.querySelector('.thinking-sub');
+        if (title) title.textContent = '✓ State collapsed';
+        if (sub) sub.textContent = '⚛️ Response ready';
     }
 
     // ---------- MESSAGES & RENDERING ----------
@@ -1013,13 +1045,19 @@
             const actions = document.createElement('div');
             actions.className = 'message-actions';
             actions.innerHTML = `
-                <div class="message-action" data-action="copy"><i class="fas fa-copy"></i> Copy</div>
-                <div class="message-action" data-action="regenerate"><i class="fas fa-rotate-right"></i> Regenerate</div>
-                <div class="message-action" data-action="speak"><i class="fas fa-volume-up"></i> Speak</div>
+                <div class="message-action" data-action="copy" title="Copy response"><i class="fas fa-copy"></i> Copy</div>
+                <div class="message-action" data-action="download" title="Download as text"><i class="fas fa-download"></i> Download</div>
+                <div class="message-action" data-action="regenerate" title="Regenerate response"><i class="fas fa-rotate-right"></i> Regenerate</div>
+                <div class="message-action" data-action="speak" title="Read aloud"><i class="fas fa-volume-up"></i> Speak</div>
             `;
             actions.querySelector('[data-action="copy"]').onclick = () => {
                 navigator.clipboard.writeText(content);
                 toast('✅ Copied to clipboard');
+            };
+            actions.querySelector('[data-action="download"]').onclick = () => {
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                saveAs(blob, `luvuno-response-${Date.now()}.txt`);
+                toast('✅ Downloaded');
             };
             actions.querySelector('[data-action="regenerate"]').onclick = () => regenerateLast();
             actions.querySelector('[data-action="speak"]').onclick = () => speak(content);
@@ -1206,15 +1244,15 @@
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
 
-        // Show the wave collapse thinking animation
+        // Show the branded wave-thinking pill
         showWaveThinking(contentEl);
         scrollToBottom(true);
 
         const reply = await fetchAiReply(text, fileContext);
 
-        // Collapse the wave, then start streaming
+        // Collapse wave, then stream
         collapseWave(contentEl);
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 500));
 
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         const fullReply = prefix + reply;
@@ -1243,7 +1281,7 @@
 
         const reply = await fetchAiReply(lastUser.content);
         collapseWave(container);
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 500));
 
         const prefix = state.quantumReasoning ? buildReasoningTree() + '\n\n' : '';
         streamReply(prefix + reply, container);
