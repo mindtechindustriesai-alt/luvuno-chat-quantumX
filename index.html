@@ -387,7 +387,7 @@
         .message.user:hover .user-copy-icon { opacity: 1; }
         .user-copy-icon:hover { color: var(--secondary); background: rgba(0,180,216,0.2); }
 
-        /* Minimalist Action Buttons - Native Unicode */
+        /* Luvuno AI response actions - visible text pill buttons */
         .message-actions {
             display: flex;
             gap: 8px;
@@ -397,25 +397,24 @@
             flex-wrap: wrap;
         }
         .message-action {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            gap: 6px;
             cursor: pointer;
+            opacity: 0.8;
             transition: all 0.2s;
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
             background: rgba(255,255,255,0.03);
             border: 1px solid transparent;
-            font-family: var(--font-mono);
         }
-        .message-action:hover { 
-            color: var(--secondary); 
-            background: rgba(0,180,216,0.15); 
-            border-color: var(--primary-glow); 
-            transform: translateY(-1px);
+        .message-action:hover {
+            opacity: 1;
+            color: var(--secondary);
+            background: rgba(0,180,216,0.1);
+            border-color: var(--primary-glow);
         }
 
         .thinking-pill {
@@ -1013,6 +1012,38 @@
         scrollToBottom(true);
     }
 
+    function addAiMessageActions(contentEl, content) {
+        // Rebuild actions after rendering/streaming so innerHTML updates cannot erase them.
+        const existing = contentEl.querySelector('.message-actions');
+        if (existing) existing.remove();
+
+        const actions = document.createElement('div');
+        actions.className = 'message-actions';
+        actions.innerHTML = `
+            <div class="message-action" data-action="copy" title="Copy response">⧉ Copy</div>
+            <div class="message-action" data-action="regenerate" title="Regenerate response">↻ Regenerate</div>
+        `;
+        actions.querySelector('[data-action="copy"]').onclick = async () => {
+            try {
+                await navigator.clipboard.writeText(content);
+                toast('✅ Copied to clipboard');
+            } catch (error) {
+                // Fallback for browsers/pages where Clipboard API is unavailable.
+                const temp = document.createElement('textarea');
+                temp.value = content;
+                temp.style.position = 'fixed';
+                temp.style.opacity = '0';
+                document.body.appendChild(temp);
+                temp.select();
+                const copied = document.execCommand('copy');
+                temp.remove();
+                toast(copied ? '✅ Copied to clipboard' : '⚠️ Copy unavailable in this browser');
+            }
+        };
+        actions.querySelector('[data-action="regenerate"]').onclick = () => regenerateLast();
+        contentEl.appendChild(actions);
+    }
+
     function appendMessageEl(role, content, time = Date.now(), animate = true) {
         const container = $('#messagesContainer');
         const wrapper = document.createElement('div');
@@ -1032,27 +1063,7 @@
         timeEl.textContent = timeStr(new Date(time));
 
         if (role === 'ai') {
-            const actions = document.createElement('div');
-            actions.className = 'message-actions';
-            // Native Unicode icons - no font dependency, instant render
-            actions.innerHTML = `
-                <div class="message-action" data-action="copy" title="Copy response">⧉</div>
-                <div class="message-action" data-action="download" title="Download as text">⬇</div>
-                <div class="message-action" data-action="regenerate" title="Regenerate response">↻</div>
-                <div class="message-action" data-action="speak" title="Read aloud">🔊</div>
-            `;
-            actions.querySelector('[data-action="copy"]').onclick = () => {
-                navigator.clipboard.writeText(content);
-                toast('✅ Copied to clipboard');
-            };
-            actions.querySelector('[data-action="download"]').onclick = () => {
-                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-                saveAs(blob, `luvuno-response-${Date.now()}.txt`);
-                toast('✅ Downloaded');
-            };
-            actions.querySelector('[data-action="regenerate"]').onclick = () => regenerateLast();
-            actions.querySelector('[data-action="speak"]').onclick = () => speak(content);
-            contentEl.appendChild(actions);
+            addAiMessageActions(contentEl, content);
         }
 
         if (role === 'user') {
@@ -1194,11 +1205,20 @@
             };
             const finish = () => {
                 containerEl.innerHTML = renderMarkdown(rendered);
+                addAiMessageActions(containerEl, rendered);
+
+                // Restore the timestamp that streaming's innerHTML replacement clears.
+                const chat = getActiveChat();
+                const lastMessage = chat?.messages[chat.messages.length - 1];
+                const timeEl = document.createElement('div');
+                timeEl.className = 'message-time';
+                timeEl.textContent = timeStr(new Date(lastMessage?.time || Date.now()));
+                containerEl.appendChild(timeEl);
+
                 state.isStreaming = false;
                 $('#sendBtn').style.display = 'flex';
                 $('#stopBtn').classList.remove('show');
 
-                const chat = getActiveChat();
                 const last = chat?.messages[chat.messages.length - 1];
                 if (last && last.role === 'ai') last.content = rendered;
                 saveState();
