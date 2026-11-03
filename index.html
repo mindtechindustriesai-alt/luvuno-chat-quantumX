@@ -23,7 +23,7 @@
             --primary: #00B4D8;
             --primary-dark: #0096C7;
             --primary-glow: rgba(0,180,216,0.4);
-            --secondary: #00F5D4; /* The Light Blue / Cyan */
+            --secondary: #00F5D4;
             --quantum: #8A2BE2;
             --quantum-glow: rgba(138,43,226,0.5);
             --success: #00FF88;
@@ -52,21 +52,15 @@
         h2 { font-size: 1.5rem; font-weight: 600; margin: 0.5em 0; color: var(--secondary); }
         h3 { font-size: 1.25rem; font-weight: 600; margin: 0.5em 0; color: var(--primary); }
         p { margin-bottom: 0.75em; line-height: 1.6; }
-        
-        /* Enhanced Markdown styling for AI responses */
-        .message.ai .message-content h1, 
-        .message.ai .message-content h2, 
-        .message.ai .message-content h3 { color: var(--secondary); border-bottom: 1px solid rgba(0, 245, 212, 0.2); padding-bottom: 4px; margin-bottom: 12px; }
-        .message.ai .message-content strong { color: var(--primary); font-weight: 700; }
-        .message.ai .message-content code { color: var(--secondary); background: rgba(0, 245, 212, 0.1); }
-        .message.ai .message-content pre { border-left: 3px solid var(--secondary); background: rgba(0,0,0,0.6); }
-        .message.ai .message-content blockquote { border-left: 3px solid var(--secondary); color: var(--secondary); opacity: 0.8; }
-        .message.ai .message-content ul li::marker { color: var(--secondary); }
-        
-        code { font-family: var(--font-mono); font-size: 0.875rem; background: rgba(0,0,0,0.3); padding: 0.125rem 0.375rem; border-radius: 6px; }
-        pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.875rem; margin: 1rem 0; }
+        code { font-family: var(--font-mono); font-size: 0.875rem; background: rgba(0,0,0,0.3); padding: 0.125rem 0.375rem; border-radius: 6px; color: var(--secondary); }
+        pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.875rem; margin: 1rem 0; border-left: 3px solid var(--primary); }
         ul, ol { margin: 0.5em 0 0.5em 1.5em; }
         li { margin: 0.25em 0; }
+        blockquote { border-left: 3px solid var(--quantum); padding-left: 1rem; margin: 1rem 0; color: var(--text-secondary); }
+        
+        /* Light blue topic accents */
+        .topic-accent { color: var(--secondary); font-weight: 600; font-family: var(--font-mono); font-size: 0.9em; }
+        .blue-glow { text-shadow: 0 0 8px var(--primary-glow); }
 
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .app-container { display: flex; height: 100vh; position: relative; z-index: 1; max-width: 100%; margin: 0 auto; }
@@ -369,44 +363,9 @@
             line-height: 1.6;
             max-width: 100%;
             word-wrap: break-word;
-            /* The AI text itself is now light blue */
-            color: var(--secondary);
         }
-        .message.user .message-content { 
-            background: linear-gradient(135deg, var(--quantum), var(--primary)); 
-            color: white; 
-        }
+        .message.user .message-content { background: linear-gradient(135deg, var(--quantum), var(--primary)); color: white; }
         .message-time { font-size: 0.7rem; opacity: 0.5; margin-top: 8px; color: var(--text-secondary); }
-
-        /* Minimalist Action Buttons */
-        .message-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px solid var(--glass-border);
-            flex-wrap: wrap;
-        }
-        .message-action {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            background: rgba(255,255,255,0.03);
-            border: 1px solid transparent;
-        }
-        .message-action:hover { 
-            color: var(--secondary); 
-            background: rgba(0,180,216,0.15); 
-            border-color: var(--primary-glow); 
-            transform: translateY(-2px);
-        }
 
         /* Hover-only copy on user messages */
         .user-copy-icon {
@@ -428,7 +387,32 @@
             transition: opacity 0.2s;
         }
         .message.user:hover .user-copy-icon { opacity: 1; }
-        .user-copy-icon:hover { color: var(--secondary); background: rgba(0,180,216,0.2); }
+        .user-copy-icon:hover { color: var(--primary); background: rgba(0,180,216,0.2); }
+
+        /* Action Buttons */
+        .message-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid var(--glass-border);
+            flex-wrap: wrap;
+        }
+        .message-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.2s;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
+        }
+        .message-action:hover { opacity: 1; color: var(--secondary); background: rgba(0,180,216,0.1); border-color: var(--primary-glow); }
 
         /* =========================================
            OPTION C: WAVE COLLAPSE (Quantum Thinking)
@@ -528,7 +512,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 30px;
             padding: 12px 18px;
-            color: var(--secondary);
+            color: white;
             font-size: 0.95rem;
             font-family: var(--font-exo);
             outline: none;
@@ -1066,10 +1050,10 @@
             const actions = document.createElement('div');
             actions.className = 'message-actions';
             actions.innerHTML = `
-                <div class="message-action" data-action="copy" title="Copy response"><i class="fas fa-copy"></i></div>
-                <div class="message-action" data-action="download" title="Download as text"><i class="fas fa-download"></i></div>
-                <div class="message-action" data-action="regenerate" title="Regenerate response"><i class="fas fa-rotate-right"></i></div>
-                <div class="message-action" data-action="speak" title="Read aloud"><i class="fas fa-volume-up"></i></div>
+                <div class="message-action" data-action="copy" title="Copy response"><i class="fas fa-copy"></i> Copy</div>
+                <div class="message-action" data-action="download" title="Download as text"><i class="fas fa-download"></i> Download</div>
+                <div class="message-action" data-action="regenerate" title="Regenerate response"><i class="fas fa-rotate-right"></i> Regenerate</div>
+                <div class="message-action" data-action="speak" title="Read aloud"><i class="fas fa-volume-up"></i> Speak</div>
             `;
             actions.querySelector('[data-action="copy"]').onclick = () => {
                 navigator.clipboard.writeText(content);
@@ -1265,11 +1249,13 @@
         addMessage('ai', '');
         const { contentEl } = appendMessageEl('ai', '');
 
+        // Show the branded wave-thinking pill
         showWaveThinking(contentEl);
         scrollToBottom(true);
 
         const reply = await fetchAiReply(text, fileContext);
 
+        // Collapse wave, then stream
         collapseWave(contentEl);
         await new Promise(r => setTimeout(r, 500));
 
