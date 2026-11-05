@@ -394,7 +394,6 @@
         .message.user:hover .user-copy-icon { opacity: 1; }
         .user-copy-icon:hover { color: var(--secondary); background: rgba(0,180,216,0.2); }
 
-        /* Luvuno AI response actions - visible text pill buttons */
         .message-actions {
             display: flex;
             gap: 8px;
@@ -886,7 +885,6 @@
             const html = window.marked
                 ? marked.parse(source, { breaks: true, gfm: true })
                 : escapeHtml(source).replace(/\n/g, '<br>');
-            // Never inject unsanitized model output into the page.
             return window.DOMPurify
                 ? DOMPurify.sanitize(html, { USE_PROFILES: { html: true } })
                 : escapeHtml(source).replace(/\n/g, '<br>');
@@ -1354,7 +1352,6 @@
         if (userIndex < 0) return;
         const lastUser = chat.messages[userIndex];
         const history = makeGatewayHistory(chat.messages.slice(0, userIndex));
-        // Remove only the response(s) after this last user turn; keep earlier history intact.
         chat.messages.splice(userIndex + 1);
         const aiMessage = addMessage('ai', '', {}, chat.id);
         saveState();
@@ -1371,15 +1368,82 @@
         });
     }
 
-    function speak(text) {
-        if (!('speechSynthesis' in window)) { toast('⚠️ Speech synthesis not supported'); return; }
-        const plain = String(text || '').replace(/<[^>]*>/g, ' ').replace(/https?:\/\/\S+/g, ' link ')
-            .replace(/[#*`>_~|]/g, '').replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 1800);
+    // ============================================================
+    // NEURAL VOICE ENGINE (KOKORO BACKEND WITH STOP CONTROLS)
+    // ============================================================
+    let currentAudio = null;
+
+    async function speak(text) {
+        // 1. If audio is already playing, stop it
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio = null;
+            document.querySelectorAll('.message-action[data-action="speak"]').forEach(btn => {
+                btn.innerHTML = '🔊 Speak';
+                btn.style.color = '';
+            });
+            return; 
+        }
+
+        // 2. Clean the text
+        const plain = String(text || '')
+            .replace(/```[\s\S]*?```/g, ' ')
+            .replace(/<[^>]*>/g, ' ')
+            .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+            .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+            .replace(/^#{1,6}\s*/gm, '')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/[*_`~]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+
         if (!plain) return;
-        const utter = new SpeechSynthesisUtterance(plain);
-        utter.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utter);
+
+        const allSpeakBtns = document.querySelectorAll('.message-action[data-action="speak"]');
+        
+        try {
+            // Loading state
+            allSpeakBtns.forEach(btn => btn.innerHTML = '⏳ Loading...');
+
+            // Fetch from Kokoro backend
+            const res = await fetch('https://khensani-voice.onrender.com/synthesize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: plain.slice(0, 1800), speed: 0.95 })
+            });
+            
+            if (!res.ok) throw new Error('Voice backend offline');
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            currentAudio = new Audio(url);
+
+            currentAudio.onended = () => {
+                currentAudio = null;
+                URL.revokeObjectURL(url);
+                allSpeakBtns.forEach(btn => {
+                    btn.innerHTML = '🔊 Speak';
+                    btn.style.color = '';
+                });
+            };
+
+            // Change button to Stop
+            allSpeakBtns.forEach(btn => {
+                btn.innerHTML = '⏹ Stop';
+                btn.style.color = 'var(--danger)';
+            });
+
+            await currentAudio.play();
+
+        } catch (err) {
+            console.error('Voice Playback Error:', err);
+            toast('⚠️ Voice engine unavailable');
+            allSpeakBtns.forEach(btn => {
+                btn.innerHTML = '🔊 Speak';
+                btn.style.color = '';
+            });
+        }
     }
 
     let recognition = null;
