@@ -1404,15 +1404,22 @@
         
         try {
             // Loading state
-            allSpeakBtns.forEach(btn => btn.innerHTML = '⏳ Loading...');
+            allSpeakBtns.forEach(btn => btn.innerHTML = '⏳ Generating...');
+
+            // Create an AbortController to prevent infinite hanging
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 45000); // 45 seconds max
 
             // Fetch from Kokoro backend
             const res = await fetch('https://khensani-voice.onrender.com/synthesize', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: plain.slice(0, 1800), speed: 0.95 })
+                body: JSON.stringify({ text: plain.slice(0, 1800), speed: 0.95 }),
+                signal: controller.signal
             });
             
+            clearTimeout(timeoutId); // Clear timer if fetch succeeds
+
             if (!res.ok) throw new Error('Voice backend offline');
 
             const blob = await res.blob();
@@ -1438,7 +1445,7 @@
 
         } catch (err) {
             console.error('Voice Playback Error:', err);
-            toast('⚠️ Voice engine unavailable');
+            toast(err.name === 'AbortError' ? '⚠️ Voice generation timed out' : '⚠️ Voice engine unavailable');
             allSpeakBtns.forEach(btn => {
                 btn.innerHTML = '🔊 Speak';
                 btn.style.color = '';
