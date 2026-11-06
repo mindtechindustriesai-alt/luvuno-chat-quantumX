@@ -338,13 +338,16 @@
         .message-avatar {
             width: 40px; height: 40px;
             background: rgba(0,180,216,0.1);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
+            overflow: hidden;
         }
+        .message-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .message-content {
             background: rgba(255,255,255,0.05);
             padding: 16px 22px;
@@ -367,11 +370,34 @@
         .message.ai .message-content pre { border-left: 3px solid var(--secondary); background: rgba(0,0,0,0.6); }
         .message.ai .message-content blockquote { border-left: 3px solid var(--secondary); color: var(--secondary); opacity: 0.8; }
         .message.ai .message-content ul li::marker { color: var(--secondary); }
-        .luvuno-sources { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--glass-border); border-radius: 12px; background: rgba(0,180,216,0.06); font-size: 0.82rem; }
-        .luvuno-sources > strong { color: var(--secondary); font-family: var(--font-mono); }
-        .luvuno-sources ul { margin: 8px 0 0 18px; }
-        .luvuno-sources a { color: var(--primary); text-decoration: underline; overflow-wrap: anywhere; }
-        .luvuno-sources li span { color: var(--text-secondary); }
+        
+        /* Pro Table Styles */
+        .message.ai .message-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .message.ai .message-content th { background: rgba(0,180,216,0.15); color: var(--secondary); padding: 10px; text-align: left; border-bottom: 2px solid var(--primary); }
+        .message.ai .message-content td { padding: 10px; border-bottom: 1px solid var(--glass-border); }
+        .message.ai .message-content tr:hover { background: rgba(255,255,255,0.02); }
+
+        .luvuno-sources { 
+            margin-top: 16px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+        .source-card {
+            background: rgba(0,180,216,0.08);
+            border: 1px solid rgba(0,180,216,0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .source-card:hover { background: rgba(0,180,216,0.15); border-color: var(--primary); transform: translateX(4px); }
+        .source-title { font-weight: 700; font-size: 0.85rem; color: var(--secondary); }
+        .source-url { font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .user-copy-icon {
             position: absolute;
@@ -433,62 +459,20 @@
             border-radius: 30px;
             box-shadow: 0 0 24px rgba(138,43,226,0.2);
         }
-        .thinking-wave-svg {
-            width: 70px;
-            height: 32px;
-            overflow: visible;
-            flex-shrink: 0;
-        }
-        .wave-path {
-            fill: none;
-            stroke: var(--secondary);
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        .thinking-label {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
+        .thinking-wave-svg { width: 70px; height: 32px; overflow: visible; flex-shrink: 0; }
+        .wave-path { fill: none; stroke: var(--secondary); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        .thinking-label { display: flex; flex-direction: column; gap: 3px; }
         .thinking-title {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
+            font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
             background: linear-gradient(90deg, var(--secondary), var(--primary), var(--quantum), var(--secondary));
-            background-size: 300% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             animation: shimmer 3s ease-in-out infinite;
         }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .thinking-sub {
-            font-family: var(--font-mono);
-            font-size: 9px;
-            color: var(--secondary);
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-        .thinking-dots::after {
-            content: '';
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
-        }
-        .thinking-pill.collapsed {
-            background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,180,216,0.05));
-            border-color: rgba(0,255,136,0.3);
-        }
+        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .thinking-sub { font-family: var(--font-mono); font-size: 9px; color: var(--secondary); letter-spacing: 1px; opacity: 0.8; }
+        .thinking-dots::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
+        @keyframes dots { 0%, 20% { content: ''; } 40% { content: '.'; } 60% { content: '..'; } 80%, 100% { content: '...'; } }
+        .thinking-pill.collapsed { background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,180,216,0.05)); border-color: rgba(0,255,136,0.3); }
 
         .input-area { padding: 16px 24px; border-top: 1px solid var(--glass-border); }
         .input-wrapper { display: flex; gap: 10px; align-items: flex-end; }
@@ -537,98 +521,31 @@
             justify-content: center;
         }
         .send-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--primary-glow); }
-        .stop-btn {
-            background: var(--danger);
-            border: none;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            display: none;
-        }
+        .stop-btn { background: var(--danger); border: none; width: 44px; height: 44px; border-radius: 50%; color: white; cursor: pointer; display: none; }
         .stop-btn.show { display: inline-flex; align-items: center; justify-content: center; }
 
         .cursor { display: inline-block; animation: blink 1s infinite; color: var(--secondary); font-weight: bold; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
         .scroll-down-btn {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--quantum);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            box-shadow: 0 4px 15px var(--quantum-glow);
+            position: fixed; bottom: 100px; right: 30px; width: 48px; height: 48px;
+            border-radius: 50%; background: var(--quantum); color: white; border: none;
+            cursor: pointer; display: none; align-items: center; justify-content: center;
+            z-index: 100; box-shadow: 0 4px 15px var(--quantum-glow);
         }
         .scroll-down-btn.show { display: flex; }
 
-        .footer {
-            padding: 10px 24px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 35px;
-            flex-wrap: wrap;
-        }
+        .footer { padding: 10px 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; }
         .footer-logo { height: 35px; width: auto; opacity: 0.7; transition: all 0.3s; }
         .footer-logo:hover { opacity: 1; transform: scale(1.05); }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            z-index: 3000;
-            align-items: center;
-            justify-content: center;
-        }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 3000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
-        .modal-content {
-            background: var(--dark-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .modal-close {
-            float: right;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 20px;
-            cursor: pointer;
-        }
+        .modal-content { background: var(--dark-card); border: 1px solid var(--glass-border); border-radius: 24px; padding: 24px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-close { float: right; background: none; border: none; color: var(--text-secondary); font-size: 20px; cursor: pointer; }
         .modal-close:hover { color: var(--danger); }
-        .avatar-upload {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        .avatar-preview {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--quantum), var(--primary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+        .avatar-upload { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .avatar-preview { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--quantum), var(--primary)); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
         .avatar-preview i { font-size: 30px; color: white; }
 
@@ -725,7 +642,6 @@
             <div class="input-area">
                 <div class="input-wrapper">
                     <button id="attachBtn" class="input-btn" title="Attach files"><i class="fas fa-paperclip"></i></button>
-                    <button id="voiceBtn" class="input-btn voice-btn" title="Voice input"><i class="fas fa-microphone"></i></button>
                     <input type="file" id="fileInput" multiple style="display: none;">
                     <textarea id="chatInput" class="chat-input" rows="1" placeholder="Ask Luvuno anything..."></textarea>
                     <button id="sendBtn" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
@@ -802,7 +718,6 @@
             <ul style="margin-left: 1.2em; line-height: 1.8; color: var(--text-secondary);">
                 <li><strong style="color: var(--primary);">Chat:</strong> Type any question and press Enter (Shift+Enter for newline).</li>
                 <li><strong style="color: var(--primary);">Attach files:</strong> Use the 📎 button — supports PDF, TXT, MD, code.</li>
-                <li><strong style="color: var(--primary);">Voice input:</strong> Click 🎤 to dictate (Chrome/Edge recommended).</li>
                 <li><strong style="color: var(--primary);">Skills:</strong> Quick-prompt buttons above the chat for common tasks.</li>
                 <li><strong style="color: var(--primary);">Quantum Reasoning:</strong> Toggle 🧠 for step-by-step breakdowns.</li>
                 <li><strong style="color: var(--primary);">Export:</strong> Download the current chat as PDF, Markdown, or TXT.</li>
@@ -830,6 +745,10 @@
     /* ============================================================
        LUVUNO — Application Logic
        ============================================================ */
+
+    // --- NANO BANANA AVATARS ---
+    const LUVUNO_AVATAR = 'https://i.postimg.cc/BQSqkk0H/Holographic-AI-avatar-floating-i-b7134f6e.jpg';
+    const USER_AVATAR = 'https://i.postimg.cc/Qt7tNT4S/3D-avatar-portrait-of-student-28da974b.jpg';
 
     const state = {
         user: { name: 'User', email: 'user@luvuno.ai', avatar: null, language: 'en' },
@@ -1031,7 +950,7 @@
         const valid = sources.map((source) => {
             if (typeof source === 'string') return { title: source, url: source };
             const rawUrl = source?.url?.uri || source?.url || source?.link || '';
-            return { title: source?.title || source?.name || rawUrl, url: rawUrl, snippet: source?.snippet || '' };
+            return { title: source?.title || source?.name || rawUrl, url: rawUrl };
         }).filter((source) => {
             try { const u = new URL(source.url); return u.protocol === 'https:' || u.protocol === 'http:'; }
             catch { return false; }
@@ -1039,26 +958,18 @@
         if (!valid.length) return;
         const section = document.createElement('div');
         section.className = 'luvuno-sources';
-        const heading = document.createElement('strong');
-        heading.textContent = 'Sources';
-        section.appendChild(heading);
-        const list = document.createElement('ul');
         valid.forEach((source) => {
-            const item = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = source.url;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.textContent = source.title || source.url;
-            item.appendChild(link);
-            if (source.snippet) {
-                const note = document.createElement('span');
-                note.textContent = ' — ' + source.snippet;
-                item.appendChild(note);
-            }
-            list.appendChild(item);
+            const card = document.createElement('a');
+            card.className = 'source-card';
+            card.href = source.url;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+            card.innerHTML = `
+                <div class="source-title">${escapeHtml(source.title)}</div>
+                <div class="source-url">${escapeHtml(source.url)}</div>
+            `;
+            section.appendChild(card);
         });
-        section.appendChild(list);
         contentEl.appendChild(section);
     }
 
@@ -1068,14 +979,12 @@
         actions.className = 'message-actions';
         actions.innerHTML = `
             <div class="message-action" data-action="copy" title="Copy response">⧉ Copy</div>
-            <div class="message-action" data-action="speak" title="Read response aloud">🔊 Speak</div>
             <div class="message-action" data-action="regenerate" title="Regenerate response">↻ Regenerate</div>
         `;
         actions.querySelector('[data-action="copy"]').onclick = async () => {
             try { await navigator.clipboard.writeText(messageData.content || contentEl.innerText); toast('✅ Copied to clipboard'); }
             catch { toast('⚠️ Clipboard access unavailable'); }
         };
-        actions.querySelector('[data-action="speak"]').onclick = () => speak(messageData.content || contentEl.innerText);
         actions.querySelector('[data-action="regenerate"]').onclick = () => regenerateLast();
         contentEl.appendChild(actions);
         contentEl.querySelectorAll('[data-reasoning-toggle]').forEach((toggle) => {
@@ -1095,7 +1004,13 @@
 
         const avatar = document.createElement('div');
         avatar.className = 'message-avatar';
-        avatar.textContent = role === 'user' ? '🧑' : '🤖';
+        
+        if (role === 'user') {
+            const activeAvatar = state.user.avatar || USER_AVATAR;
+            avatar.innerHTML = `<img src="${activeAvatar}" alt="User">`;
+        } else {
+            avatar.innerHTML = `<img src="${LUVUNO_AVATAR}" alt="Luvuno">`;
+        }
 
         const contentEl = document.createElement('div');
         contentEl.className = 'message-content';
@@ -1182,10 +1097,11 @@
     const GATEWAY_URL = 'https://luvuno-backend-proxy.onrender.com/api/chat';
     const LUVUNO_SYSTEM_PROMPT = "You are Luvuno, a Quantum Sovereign AI assistant built by MindTech Industries. You speak English, isiZulu, isiXhosa, and chiShona. Be helpful, direct, intelligent, and concise. Respect the user's language preference. When live sources are provided, use them accurately and do not invent citations.";
 
+    // Super Memory: Pass up to 50 messages for deep context
     function makeGatewayHistory(messages) {
         return (messages || [])
             .filter((message) => (message.role === 'user' || message.role === 'ai' || message.role === 'assistant') && String(message.content || '').trim())
-            .slice(-10)
+            .slice(-50) 
             .map((message) => ({
                 role: message.role === 'user' ? 'user' : 'assistant',
                 content: String(message.content).slice(0, 12000),
@@ -1196,6 +1112,7 @@
         const prompt = context
             ? `${userMessage || 'Please review the attached material.'}\n\nATTACHED FILE CONTEXT:\n${context}`
             : userMessage;
+            
         const response = await fetch(GATEWAY_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1368,121 +1285,6 @@
         });
     }
 
-    // ============================================================
-    // NEURAL VOICE ENGINE (KOKORO BACKEND WITH STOP CONTROLS)
-    // ============================================================
-    let currentAudio = null;
-
-    async function speak(text) {
-        // 1. If audio is already playing, stop it
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio = null;
-            document.querySelectorAll('.message-action[data-action="speak"]').forEach(btn => {
-                btn.innerHTML = '🔊 Speak';
-                btn.style.color = '';
-            });
-            return; 
-        }
-
-        // 2. Clean the text
-        const plain = String(text || '')
-            .replace(/```[\s\S]*?```/g, ' ')
-            .replace(/<[^>]*>/g, ' ')
-            .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
-            .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-            .replace(/^#{1,6}\s*/gm, '')
-            .replace(/\*\*(.*?)\*\*/g, '$1')
-            .replace(/[*_`~]/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-        if (!plain) return;
-
-        const allSpeakBtns = document.querySelectorAll('.message-action[data-action="speak"]');
-        
-        try {
-            // Loading state
-            allSpeakBtns.forEach(btn => btn.innerHTML = '⏳ Generating...');
-
-            // Create an AbortController to prevent infinite hanging
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 45000); // 45 seconds max
-
-            // Fetch from Kokoro backend
-            const res = await fetch('https://khensani-voice.onrender.com/synthesize', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: plain.slice(0, 1800), speed: 0.95 }),
-                signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId); // Clear timer if fetch succeeds
-
-            if (!res.ok) throw new Error('Voice backend offline');
-
-            const blob = await res.blob();
-            const url = URL.createObjectURL(blob);
-            currentAudio = new Audio(url);
-
-            currentAudio.onended = () => {
-                currentAudio = null;
-                URL.revokeObjectURL(url);
-                allSpeakBtns.forEach(btn => {
-                    btn.innerHTML = '🔊 Speak';
-                    btn.style.color = '';
-                });
-            };
-
-            // Change button to Stop
-            allSpeakBtns.forEach(btn => {
-                btn.innerHTML = '⏹ Stop';
-                btn.style.color = 'var(--danger)';
-            });
-
-            await currentAudio.play();
-
-        } catch (err) {
-            console.error('Voice Playback Error:', err);
-            toast(err.name === 'AbortError' ? '⚠️ Voice generation timed out' : '⚠️ Voice engine unavailable');
-            allSpeakBtns.forEach(btn => {
-                btn.innerHTML = '🔊 Speak';
-                btn.style.color = '';
-            });
-        }
-    }
-
-    let recognition = null;
-    function toggleVoice() {
-        const btn = $('#voiceBtn');
-        if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-            toast('⚠️ Voice recognition not supported in this browser');
-            return;
-        }
-        if (recognition && btn.classList.contains('recording')) {
-            recognition.stop();
-            btn.classList.remove('recording');
-            return;
-        }
-        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SR();
-        recognition.lang = { en: 'en-US', zu: 'zu-ZA', xh: 'xh-ZA', sn: 'sn-ZW' }[state.user.language] || 'en-US';
-        recognition.interimResults = true;
-        recognition.continuous = false;
-        recognition.onresult = (e) => {
-            let transcript = '';
-            for (let i = e.resultIndex; i < e.results.length; i++) {
-                transcript += e.results[i][0].transcript;
-            }
-            $('#chatInput').value = transcript;
-        };
-        recognition.onend = () => btn.classList.remove('recording');
-        recognition.onerror = () => btn.classList.remove('recording');
-        recognition.start();
-        btn.classList.add('recording');
-    }
-
     async function handleFiles(files) {
         const status = $('#uploadStatus');
         for (const file of files) {
@@ -1582,8 +1384,8 @@
             $('#avatarPreview').innerHTML = `<img src="${state.user.avatar}" alt="avatar">`;
             $('#profileAvatar').innerHTML = `<img src="${state.user.avatar}" alt="avatar">`;
         } else {
-            $('#avatarPreview').innerHTML = '<i class="fas fa-user-astronaut"></i>';
-            $('#profileAvatar').innerHTML = '<i class="fas fa-user-astronaut"></i>';
+            $('#avatarPreview').innerHTML = `<img src="${USER_AVATAR}" alt="avatar">`;
+            $('#profileAvatar').innerHTML = `<img src="${USER_AVATAR}" alt="avatar">`;
         }
         $('#userName').textContent = state.user.name;
         $('#userEmail').textContent = state.user.email;
@@ -1721,7 +1523,6 @@
             e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
         };
 
-        $('#voiceBtn').onclick = toggleVoice;
         $('#attachBtn').onclick = () => $('#fileInput').click();
         $('#fileInput').onchange = async (e) => {
             await handleFiles(e.target.files);
